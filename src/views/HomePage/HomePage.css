@@ -1,0 +1,18 @@
+.homePageImage {
+  padding: 100px 20px 20px 20px;
+}
+
+.anime-appear {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.anime-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 500ms linear;
+}
+
+.homePageTitle {
+  margin: 25px;
+}

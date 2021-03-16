@@ -1,0 +1,17 @@
+.container-user {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.avatar {
+  margin-right: 4px;
+}
+
+.name {
+  font-weight: 400;
+  margin-right: 12px;
+}
+.button {
+  margin-right: 12px;
+}
