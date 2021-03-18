@@ -4,22 +4,6 @@ import { connect } from 'react-redux';
 import { getIsAuthenticated } from '../redux/auth';
 import paths from '../paths';
 
-/*  
-const PrivateRoute = ({
-  component: Component,
-  isAuthenticated,
-  redirectTo,
-  ...routeProps
-}) => (
-  <Route
-    {...routeProps}
-    render={props =>
-      isAuthenticated ? <Component {...props} /> : <Redirect to={redirectTo} />
-    }
-  />
-);
-*/
-
 const PrivateRoute = ({
   component: Component,
   isAuthenticated,

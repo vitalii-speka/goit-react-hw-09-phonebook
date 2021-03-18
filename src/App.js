@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import AppBar from './componets/AppBar';
 import Container from './componets/Container';
 import { getCurrentUser } from './redux/auth';
-import './componets/App.css';
-import Content from './Content';
+import './style/App.css';
+import Content from './componets/Content';
 
 class App extends Component {
   componentDidMount() {

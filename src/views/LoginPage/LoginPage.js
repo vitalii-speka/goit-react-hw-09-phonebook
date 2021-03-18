@@ -42,50 +42,52 @@ export class LoginPage extends Component {
 
     return (
       <>
-        {/* {isLoadingAuth && <LinearIndeterminate />} */}
+        {isLoadingAuth && <LinearIndeterminate />}
 
-        {isLoadingAuth ? (
+        {/* {isLoadingAuth ? (
           <LinearIndeterminate />
         ) : (
-          <CSSTransition
-            in={true}
-            appear={true}
-            timeout={250}
-            classNames="fade-scale"
-            unmountOnExit
-          >
-            <div>
-              <h2>Enter Login and Password</h2>
-              <form onSubmit={this.handleSubmit} className={styles.TaskEditor}>
-                <label className={styles.TaskEditor_label}>
-                  Email
-                  <input
-                    className={styles.TaskEditor_input}
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={this.handleChange}
-                  />
-                </label>
+          <!! вставить LoginPage
+        )} */}
 
-                <label className={styles.TaskEditor_label}>
-                  Password
-                  <input
-                    className={styles.TaskEditor_input}
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={this.handleChange}
-                  />
-                </label>
+        <CSSTransition
+          in={true}
+          appear={true}
+          timeout={250}
+          classNames="fade-scale"
+          unmountOnExit
+        >
+          <div>
+            <h2>Enter Login and Password</h2>
+            <form onSubmit={this.handleSubmit} className={styles.TaskEditor}>
+              <label className={styles.TaskEditor_label}>
+                Email
+                <input
+                  className={styles.TaskEditor_input}
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+              </label>
 
-                <button className={styles.TaskEditor_button} type="submit">
-                  Log In
-                </button>
-              </form>
-            </div>
-          </CSSTransition>
-        )}
+              <label className={styles.TaskEditor_label}>
+                Password
+                <input
+                  className={styles.TaskEditor_input}
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+              </label>
+
+              <button className={styles.TaskEditor_button} type="submit">
+                Log In
+              </button>
+            </form>
+          </div>
+        </CSSTransition>
         {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
       </>
     );

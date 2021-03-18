@@ -3,7 +3,7 @@ import ContactForm from '../../componets/ContactForm';
 import ContactList from '../../componets/ContactList';
 import Filter from '../../componets/Filter';
 import { connect } from 'react-redux';
-import '../../componets/App.css';
+import '../../style/App.css';
 import ContactsTitle from '../../componets/ContactsTitle';
 import {
   getLoadingContacts,

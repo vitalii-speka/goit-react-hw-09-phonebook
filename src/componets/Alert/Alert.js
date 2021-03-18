@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import '../App.css';
+import '../../style/App.css';
 import { CSSTransition } from 'react-transition-group';
 import { clearError } from '../../redux/auth';
 import AlertDismissibleExample from '../../componets/AlertDismissibleExample';

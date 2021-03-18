@@ -1,11 +1,11 @@
 import React, { Suspense } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
-import LinearIndeterminate from './componets/spiner/LinearIndeterminate';
+import LinearIndeterminate from './spiner/LinearIndeterminate';
 
-import routes from './routes';
-import PublicRoute from './componets/PublicRoute';
-import PrivateRoute from './componets/PrivateRoute';
-import paths from './paths';
+import routes from '../routes';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+import paths from '../paths';
 
 function Content() {
   return (

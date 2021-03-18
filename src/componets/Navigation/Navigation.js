@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import routes from '../../routes';
 import { getIsAuthenticated } from '../../redux/auth';
 import '../AppBar/AppBar.css';
 import paths from '../../paths';

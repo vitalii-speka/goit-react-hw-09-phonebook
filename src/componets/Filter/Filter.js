@@ -11,14 +11,6 @@ import BackspaceIcon from '@material-ui/icons/Backspace';
 import styles from './Filter.module.css';
 
 class Filter extends Component {
-  state = {
-    inputValue: '',
-  };
-
-  clearInput = () => {
-    this.setState({ inputValue: '' });
-  };
-
   render() {
     const { value, onChange, contacts, clearInput } = this.props;
 
