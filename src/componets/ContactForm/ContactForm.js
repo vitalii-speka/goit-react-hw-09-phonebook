@@ -17,13 +17,21 @@ export default function ContactForm() {
 
   const contacts = useSelector(getContacts);
 
-  const handleCheangeName = useCallback(e => {
-    setName(e.currentTarget.value);
-  }, []);
+  const handleCheange = e => {
+    const { name, value } = e.currentTarget;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
 
-  const handleCheangeNumber = useCallback(e => {
-    setNumber(e.currentTarget.value);
-  }, []);
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const alertReset = () => {
     setAlertError(false);
@@ -89,7 +97,7 @@ export default function ContactForm() {
               type="text"
               name="name"
               value={name}
-              onChange={handleCheangeName}
+              onChange={handleCheange}
             />
           </label>
           <label className={styles.TaskEditor_label} htmlFor={numberInputId}>
@@ -99,7 +107,7 @@ export default function ContactForm() {
               type="number"
               name="number"
               value={number}
-              onChange={handleCheangeNumber}
+              onChange={handleCheange}
             />
             <button className={styles.TaskEditor_button} type="submit">
               Add contact
