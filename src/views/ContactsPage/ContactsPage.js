@@ -11,7 +11,7 @@ import {
   fetchContact,
   getContactsError,
 } from '../../redux/phonebook';
-import { getUserName, getAuthLoading } from '../../redux/auth';
+import { getUserName, getIsToken } from '../../redux/auth';
 
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import Alert from '../../componets/Alert';
@@ -21,16 +21,21 @@ export default function ContactsPage() {
   const isLoadingContacts = useSelector(getLoadingContacts);
   const errorContacts = useSelector(getContactsError);
   const name = useSelector(getUserName);
-  const isLoadingAuth = useSelector(getAuthLoading);
+  const isTokenAuth = useSelector(getIsToken);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchContact());
-    if (isLoadingAuth) {
-      document.title = `helo ${name}`;
+    console.log(isTokenAuth);
+    if (isTokenAuth) {
+      document.title = `Hi, ${name}`;
     }
-  }, [dispatch, isLoadingAuth, name]);
+
+    return () => {
+      document.title = `goit-react-hw-09-phonebook`;
+    };
+  }, [dispatch, isTokenAuth, name]);
 
   return (
     <div className="App">
