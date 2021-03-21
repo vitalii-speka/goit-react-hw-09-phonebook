@@ -27,14 +27,15 @@ export default function ContactsPage() {
 
   useEffect(() => {
     dispatch(fetchContact());
-    console.log(isTokenAuth);
     if (isTokenAuth) {
       document.title = `Hello, ${name}`;
     }
 
-    return () => {
-      document.title = `goit-react-hw-09-phonebook`;
-    };
+    if (!isTokenAuth) {
+      return () => {
+        document.title = `goit-react-hw-09-phonebook`;
+      };
+    }
   }, [dispatch, isTokenAuth, name]);
 
   return (
