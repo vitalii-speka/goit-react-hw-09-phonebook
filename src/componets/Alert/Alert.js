@@ -1,39 +1,34 @@
-import { connect } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
 import '../../style/App.css';
 import { CSSTransition } from 'react-transition-group';
 import { clearError } from '../../redux/auth';
 import AlertDismissibleExample from '../../componets/AlertDismissibleExample';
 
-import React, { Component } from 'react';
+export default function Alert({ text, alert }) {
+  const dispatch = useDispatch();
 
-export class Alert extends Component {
-  componentDidMount() {
-    if (this.props.alert) {
+  const onClearError = useCallback(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (alert) {
       setTimeout(() => {
-        this.props.clearError();
+        onClearError();
       }, 5000);
-      return;
     }
-  }
+  }, [alert, onClearError]);
 
-  render() {
-    const { text } = this.props;
-
-    return (
-      <CSSTransition
-        in={text}
-        timeout={250}
-        classNames="fade-scale"
-        unmountOnExit
-      >
-        <AlertDismissibleExample text={text} />
-      </CSSTransition>
-    );
-  }
+  return (
+    <CSSTransition
+      in={text}
+      timeout={250}
+      classNames="fade-scale"
+      unmountOnExit
+    >
+      <AlertDismissibleExample text={text} />
+    </CSSTransition>
+  );
 }
-
-const mapDispatchToProps = {
-  clearError: clearError,
-};
-
-export default connect(null, mapDispatchToProps)(Alert);
