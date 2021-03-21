@@ -47,19 +47,3 @@ export default function Filter() {
     </>
   );
 }
-
-/* ...
-
-  const mapStateToProps = state => ({
-  value: getFilter(state),
-  contacts: getContacts(state),
-  });
-
-
-  const mapDispatchToProps = {
-    onChange: changeFilter,
-    clearInput: clearFilterInput,
-  };
-
-  export default connect(mapStateToProps, mapDispatchToProps)(Filter);  
-*/

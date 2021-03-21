@@ -9,6 +9,5 @@ export const getAuthLoading = state => state.auth.loading;
 export const getIsAuthenticated = state => state.auth.token;
 
 /* вариант Репеты
-
 export const getIsAuthenticated = state => state.auth.isAuthenticated;
 */

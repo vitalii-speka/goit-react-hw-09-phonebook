@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './RegisterPage.css';
 import { getAuthError, register, getAuthLoading } from '../../redux/auth';
 import Alert from '../../componets/Alert';
@@ -7,96 +7,102 @@ import styles from '../../componets/ContactForm/ContactForm.module.css';
 import { CSSTransition } from 'react-transition-group';
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 
-export class RegisterPage extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-  };
+export default function RegisterPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  const dispatch = useDispatch();
 
-  handleSubmit = e => {
+  const errorAuth = useSelector(getAuthError);
+  const isLoadingAuth = useSelector(getAuthLoading);
+
+  const handleChange = useCallback(e => {
+    const { name, value } = e.currentTarget;
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'email':
+        setEmail(value);
+        break;
+
+      case 'password':
+        setPassword(value);
+        break;
+
+      default:
+        break;
+    }
+  }, []);
+
+  const handleSubmit = e => {
     e.preventDefault();
 
-    this.props.onRegister(this.state);
+    dispatch(register({ name: name, email: email, password: password }));
 
-    this.setState({ name: '', email: '', password: '' });
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
-  render() {
-    const { name, email, password } = this.state;
-    const { errorAuth, isLoadingAuth } = this.props;
+  return (
+    <>
+      <CSSTransition
+        in={true}
+        appear={true}
+        timeout={250}
+        classNames="fade-scale"
+        unmountOnExit
+      >
+        <div>
+          <h2>Create account</h2>
 
-    return (
-      <>
-        <CSSTransition
-          in={true}
-          appear={true}
-          timeout={250}
-          classNames="fade-scale"
-          unmountOnExit
-        >
-          <div>
-            <h2>Create account</h2>
+          <form onSubmit={handleSubmit} className={styles.TaskEditor}>
+            <label className={styles.TaskEditor_label}>
+              Name
+              <input
+                className={styles.TaskEditor_input}
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleChange}
+              />
+            </label>
 
-            <form onSubmit={this.handleSubmit} className={styles.TaskEditor}>
-              <label className={styles.TaskEditor_label}>
-                Name
-                <input
-                  className={styles.TaskEditor_input}
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={this.handleChange}
-                />
-              </label>
+            <label className={styles.TaskEditor_label}>
+              Email
+              <input
+                className={styles.TaskEditor_input}
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleChange}
+              />
+            </label>
 
-              <label className={styles.TaskEditor_label}>
-                Email
-                <input
-                  className={styles.TaskEditor_input}
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
-              </label>
+            <label className={styles.TaskEditor_label}>
+              Password
+              <input
+                className={styles.TaskEditor_input}
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+              />
+            </label>
 
-              <label className={styles.TaskEditor_label}>
-                Password
-                <input
-                  className={styles.TaskEditor_input}
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={this.handleChange}
-                />
-              </label>
+            <button className={styles.TaskEditor_button} type="submit">
+              Sing Up
+            </button>
+          </form>
+        </div>
+      </CSSTransition>
+      {isLoadingAuth && <LinearIndeterminate />}
 
-              <button className={styles.TaskEditor_button} type="submit">
-                Sing Up
-              </button>
-            </form>
-          </div>
-        </CSSTransition>
-        {isLoadingAuth && <LinearIndeterminate />}
-
-        {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
-      </>
-    );
-  }
+      {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
+    </>
+  );
 }
-
-const mapStateToProps = state => ({
-  errorAuth: getAuthError(state),
-  isLoadingAuth: getAuthLoading(state),
-});
-
-const mapDispatchToProps = {
-  onRegister: register,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

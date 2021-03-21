@@ -29,7 +29,7 @@ export default function ContactsPage() {
     dispatch(fetchContact());
     console.log(isTokenAuth);
     if (isTokenAuth) {
-      document.title = `Hi, ${name}`;
+      document.title = `Hello, ${name}`;
     }
 
     return () => {
