@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+// import React from 'react';
+import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import { getVisibleContacts, removeContact } from '../../redux/phonebook';
@@ -10,24 +11,22 @@ export default function ContactList() {
 
   const contacts = useSelector(getVisibleContacts);
 
-  const onRemoveContact = useCallback(() => {
-    dispatch(removeContact());
-  }, [dispatch]);
-
   return (
     <CSSTransition in={contacts.length > 0} timeout={250} classNames="fade">
       <TransitionGroup component="ul" className="TaskList">
-        {contacts.map(contact => (
-          <CSSTransition key={contact.id} timeout={300}>
+        {contacts.map(({ id, name, number }) => (
+          <CSSTransition key={id} timeout={300}>
             <li className="TaskList_item">
-              {contact.name + ' : ' + contact.number}
+              {name + ' : ' + number}
               {
                 <div className="divRelativeButton">
                   <button
                     className="TaskList_button"
                     type="button"
                     name="delete"
-                    onClick={onRemoveContact(contact.id)}
+                    onClick={() => {
+                      dispatch(removeContact(id));
+                    }}
                   >
                     delete
                   </button>
@@ -50,45 +49,3 @@ ContactList.prototype = {
     }),
   ),
 };
-
-/* to
-
-
-const ContactList = ({ contacts, onRemoveContact }) => {
-  return (
-    <CSSTransition in={contacts.length > 0} timeout={250} classNames="fade">
-      <TransitionGroup component="ul" className="TaskList">
-        {contacts.map(contact => (
-          <CSSTransition key={contact.id} timeout={300}>
-            <li className="TaskList_item">
-              {contact.name + ' : ' + contact.number}
-              {
-                <div className="divRelativeButton">
-                  <button
-                    className="TaskList_button"
-                    type="button"
-                    name="delete"
-                    onClick={() => onRemoveContact(contact.id)}
-                  >
-                    delete
-                  </button>
-                </div>
-              }
-            </li>
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
-    </CSSTransition>
-  );
-};
-
-const mapStateToProps = state => ({
-  contacts: getVisibleContacts(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onRemoveContact: id => dispatch(removeContact(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
-*/

@@ -19,6 +19,7 @@ export default function ContactForm() {
 
   const handleCheange = e => {
     const { name, value } = e.currentTarget;
+
     switch (name) {
       case 'name':
         setName(value);

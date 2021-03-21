@@ -1,11 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getIsAuthenticated } from '../../redux/auth';
 import '../AppBar/AppBar.css';
 import paths from '../../paths';
 
-const Navigation = ({ getIsToken }) => {
+export default function Navigation() {
+  const getIsToken = useSelector(getIsAuthenticated);
+
   return (
     <nav className="nav">
       <NavLink
@@ -29,10 +31,4 @@ const Navigation = ({ getIsToken }) => {
       )}
     </nav>
   );
-};
-
-const mapDispatchToProps = state => ({
-  getIsToken: getIsAuthenticated(state),
-});
-
-export default connect(mapDispatchToProps)(Navigation);
+}

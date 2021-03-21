@@ -7,7 +7,7 @@ import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import paths from '../paths';
 
-function Content() {
+export default function Content() {
   return (
     <Suspense fallback={<LinearIndeterminate />}>
       <Switch>
@@ -23,5 +23,3 @@ function Content() {
     </Suspense>
   );
 }
-
-export default Content;

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import {
   getFilter,
@@ -10,58 +10,56 @@ import {
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import styles from './Filter.module.css';
 
-class Filter extends Component {
-  render() {
-    const { value, onChange, contacts, clearInput } = this.props;
+export default function Filter() {
+  const dispatch = useDispatch();
 
-    return (
-      <>
-        <CSSTransition
-          in={contacts.length > 0}
-          timeout={250}
-          classNames="fade"
-          unmountOnExit
-        >
-          <label className={styles.TaskList_item}>
-            <p>Find contacts by name</p>
-            {/* <div className={styles.position}> */}
-            <input
-              className={styles.TaskEditor_input}
-              type="text"
-              value={value}
-              onChange={e => onChange(e.target.value)}
-              name="filter"
-            />
-            {value && (
-              <button className={styles.button} onClick={() => clearInput()}>
-                <BackspaceIcon />
-              </button>
-            )}
+  const value = useSelector(getFilter);
+  const contacts = useSelector(getContacts);
 
-            {/* </div> */}
-          </label>
-        </CSSTransition>
-      </>
-    );
-  }
+  const clearInput = useCallback(() => {
+    dispatch(clearFilterInput());
+  }, [dispatch]);
+
+  return (
+    <>
+      <CSSTransition
+        in={contacts.length > 0}
+        timeout={250}
+        classNames="fade"
+        unmountOnExit
+      >
+        <label className={styles.TaskList_item}>
+          <p>Find contacts by name</p>
+          <input
+            className={styles.TaskEditor_input}
+            type="text"
+            value={value}
+            onChange={e => dispatch(changeFilter(e.target.value))}
+            name="filter"
+          />
+          {value && (
+            <button className={styles.button} onClick={clearInput}>
+              <BackspaceIcon />
+            </button>
+          )}
+        </label>
+      </CSSTransition>
+    </>
+  );
 }
 
-const mapStateToProps = state => ({
+/* ...
+
+  const mapStateToProps = state => ({
   value: getFilter(state),
   contacts: getContacts(state),
-});
+  });
 
-/* (to)
-onChange={onChange}
 
-const mapDispatchToProps = dispatch => ({
-  onChange: e => dispatch(phonebookActions.changeFilter(e.target.value)),
-});
-(after) */
+  const mapDispatchToProps = {
+    onChange: changeFilter,
+    clearInput: clearFilterInput,
+  };
 
-const mapDispatchToProps = {
-  onChange: changeFilter,
-  clearInput: clearFilterInput,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+  export default connect(mapStateToProps, mapDispatchToProps)(Filter);  
+*/

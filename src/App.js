@@ -1,30 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import AppBar from './componets/AppBar';
 import Container from './componets/Container';
 import { getCurrentUser } from './redux/auth';
 import './style/App.css';
 import Content from './componets/Content';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onGetCurrentUser();
-  }
+export default function App() {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <div className="App">
-        <Container>
-          <AppBar />
-          <Content />
-        </Container>
-      </div>
-    );
-  }
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
+  return (
+    <div className="App">
+      <Container>
+        <AppBar />
+        <Content />
+      </Container>
+    </div>
+  );
 }
-
-const mapDispatchToProps = {
-  onGetCurrentUser: getCurrentUser,
-};
-
-export default connect(null, mapDispatchToProps)(App);
