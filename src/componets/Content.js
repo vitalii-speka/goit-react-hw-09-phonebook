@@ -23,3 +23,30 @@ export default function Content() {
     </Suspense>
   );
 }
+
+/*
+export default function Content() {
+  return (
+    <Suspense fallback={<LinearIndeterminate />}>
+      <Switch>
+        {routes.map(route =>
+          route.private ? (
+            <PrivateRoute key={route.name} {...route}>
+              {route.component}
+            </PrivateRoute>
+          ) : (
+            // <PublicRoute {...props}>
+            //   <Component />
+            // </PublicRoute>
+            <PublicRoute key={route.name} {...route}>
+              {route.component}
+            </PublicRoute>
+          ),
+        )}
+        <Redirect to={paths.home} />
+      </Switch>
+    </Suspense>
+  );
+}
+
+*/

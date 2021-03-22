@@ -20,3 +20,21 @@ export default function PublicRoute({ component: Component, ...routeProps }) {
     />
   );
 }
+
+/* 
+export default function PublicRoute({ children: Component, ...routeProps }) {
+  const isAuthenticated = useSelector(getIsAuthenticated);
+  console.log(Component);
+  // console.log(...routeProps);
+  return (
+    <Route {...routeProps}>
+      {isAuthenticated && routeProps.restricted ? (
+        <Component {...routeProps} />
+      ) : (
+        <Redirect to={paths.contacts} />
+      )}
+    </Route>
+  );
+}
+
+*/
