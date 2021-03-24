@@ -37,6 +37,8 @@ const token = createReducer(initialState.auth.token, {
   [registerSuccess]: (_, { payload }) => payload.token,
   [loginSuccess]: (_, { payload }) => payload.token,
   [logoutSuccess]: () => null,
+  [logoutError]: () => null,
+  [getCurrentUserError]: () => null,
 });
 
 const setError = (_, { payload }) => payload;

@@ -11,35 +11,14 @@ export default function Content() {
   return (
     <Suspense fallback={<LinearIndeterminate />}>
       <Switch>
-        {routes.map(route =>
-          route.private ? (
-            <PrivateRoute key={route.name} {...route} />
-          ) : (
-            <PublicRoute key={route.name} {...route} />
-          ),
-        )}
-        <Redirect to={paths.home} />
-      </Switch>
-    </Suspense>
-  );
-}
-
-/*
-export default function Content() {
-  return (
-    <Suspense fallback={<LinearIndeterminate />}>
-      <Switch>
-        {routes.map(route =>
+        {routes.map(({ component: Component, ...route }) =>
           route.private ? (
             <PrivateRoute key={route.name} {...route}>
-              {route.component}
+              <Component />
             </PrivateRoute>
           ) : (
-            // <PublicRoute {...props}>
-            //   <Component />
-            // </PublicRoute>
             <PublicRoute key={route.name} {...route}>
-              {route.component}
+              <Component />
             </PublicRoute>
           ),
         )}
@@ -48,5 +27,3 @@ export default function Content() {
     </Suspense>
   );
 }
-
-*/

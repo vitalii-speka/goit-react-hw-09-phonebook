@@ -86,5 +86,6 @@ export const getCurrentUser = () => async (dispatch, getState) => {
     dispatch(getCurrentUserSuccess(data));
   } catch (error) {
     dispatch(getCurrentUserError(error.message));
+    token.unset();
   }
 };
