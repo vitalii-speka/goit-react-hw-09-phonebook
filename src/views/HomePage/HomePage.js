@@ -14,12 +14,12 @@ export default function HomePage() {
 
   useEffect(() => {
     if (isTokenAuth) {
-      document.title = `Hello, ${name}`;
+      document.title = `Hi, ${name}`;
     }
 
     if (!isTokenAuth) {
       return () => {
-        document.title = `goit-react-hw-09-phonebook`;
+        document.title = `Phonebook`;
       };
     }
   }, [isTokenAuth, name]);
@@ -27,7 +27,7 @@ export default function HomePage() {
   return (
     <>
       {isAuthenticated ? (
-        <h2 className="homePageTitle">Hello, {name}! This you phonebook</h2>
+        <h2 className="homePageTitle">Hello, {name}! This your phonebook</h2>
       ) : null}
       <CSSTransition
         in={true}
