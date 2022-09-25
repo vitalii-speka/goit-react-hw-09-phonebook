@@ -36,7 +36,7 @@ export default function HomePage() {
         classNames="anime"
         unmountOnExit
       >
-        <img src={homePageImage} alt="" width="640" className="homePageImage" />
+        <img src={homePageImage} alt="" width="480" className="homePageImage" />
       </CSSTransition>
     </>
   );
