@@ -15,7 +15,8 @@ import {
   clearError,
 } from './auth-actions';
 
-axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 const token = {
   set(token) {
@@ -30,12 +31,19 @@ export const register = credentials => async dispatch => {
   dispatch(registerRequest());
 
   try {
-    const { data } = await axios.post('/users/signup', credentials);
+    const { data } = await axios.post('/users/register', credentials, {
+    // const { data } = await axios.post('/users/signup', credentials, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      },
+    });
 
-    token.set(data.token);
+    // token.set(data.token);
     dispatch(registerSuccess(data));
     dispatch(clearError());
   } catch (error) {
+    console.log('🚀 ~ register ~ error:', error);
     dispatch(registerError(error.message));
   }
 };
@@ -89,3 +97,11 @@ export const getCurrentUser = () => async (dispatch, getState) => {
     token.unset();
   }
 };
+
+/*  need add new routers
+
+router.patch('/', guard, validationUpdateSub, userController.updateSub)
+router.patch('/avatars', guard, uploadAvatar.single('avatar'), userController.updateAvatar)
+router.get('/verify/:token', userController.verify)
+router.post('/verify', validationUserVerify, userController.repeatEmailVerify)
+*/

@@ -18,10 +18,15 @@ import Alert from '../../componets/Alert';
 
 export default function ContactsPage() {
   const contacts = useSelector(getContacts);
+  console.log("🚀 ~ ContactsPage ~ contacts:", contacts)
   const isLoadingContacts = useSelector(getLoadingContacts);
+  console.log("🚀 ~ ContactsPage ~ isLoadingContacts:", isLoadingContacts)
   const errorContacts = useSelector(getContactsError);
+  console.log("🚀 ~ ContactsPage ~ errorContacts:", errorContacts)
   const name = useSelector(getUserName);
+  console.log("🚀 ~ ContactsPage ~ name:", name)
   const isTokenAuth = useSelector(getIsToken);
+  console.log("🚀 ~ ContactsPage ~ isTokenAuth:", isTokenAuth)
 
   const dispatch = useDispatch();
 
@@ -41,7 +46,7 @@ export default function ContactsPage() {
   return (
     <div className="App">
       <h1>Contacts Page</h1>
-      <ContactForm />
+      {/* <ContactForm />
       {contacts.length !== 0 ? (
         <ContactsTitle />
       ) : (
@@ -50,7 +55,7 @@ export default function ContactsPage() {
       {isLoadingContacts && <LinearIndeterminate />}
       {errorContacts && <Alert text={errorContacts} alert={errorContacts} />}
       <Filter />
-      <ContactList />
+      <ContactList /> */}
     </div>
   );
 }

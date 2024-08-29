@@ -27,7 +27,9 @@ export default function HomePage() {
   return (
     <>
       {isAuthenticated ? (
-        <h2 className="homePageTitle">Hello, {name}! This your phonebook</h2>
+        <h2 className="homePageTitle">
+          Hello, {name & 'User'}! This your phonebook
+        </h2>
       ) : null}
       <CSSTransition
         in={true}

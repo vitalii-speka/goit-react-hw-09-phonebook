@@ -41,6 +41,7 @@ const token = createReducer(initialState.auth.token, {
   [getCurrentUserError]: () => null,
 });
 
+
 const setError = (_, { payload }) => payload;
 
 const error = createReducer(initialState.auth.error, {
