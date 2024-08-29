@@ -7,7 +7,9 @@ import './style/index.css';
 import App from './App';
 import { store, persistor } from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import reportWebVitals from './reportWebVitals';
 
+// const root = ReactDOM.createRoot(document.getElementById('root'));
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,3 +23,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
+
+// reportWebVitals();

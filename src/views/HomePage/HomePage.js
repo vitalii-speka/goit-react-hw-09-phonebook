@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { useSelector } from 'react-redux';
-import { getIsAuthenticated, getUserName, getIsToken } from '../../redux/auth';
+import {
+  getIsAuthenticated,
+  getUserName,
+  getIsToken,
+} from '../../redux/auth-old';
+import { useAuth } from '../../hooks';
+
 
 import './HomePage.css';
 
@@ -11,6 +17,10 @@ export default function HomePage() {
   const isAuthenticated = useSelector(getIsAuthenticated);
   const name = useSelector(getUserName);
   const isTokenAuth = useSelector(getIsToken);
+
+    const { isLoggedIn } = useAuth();
+    console.log('🚀 ~ LoginPage ~ isLoggedIn:', isLoggedIn);
+
 
   useEffect(() => {
     if (isTokenAuth) {

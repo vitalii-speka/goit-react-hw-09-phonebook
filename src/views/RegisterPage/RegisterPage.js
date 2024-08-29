@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './RegisterPage.css';
-import { getAuthError, register, getAuthLoading } from '../../redux/auth';
+import { getAuthError, getAuthLoading } from '../../redux/auth-old';
+import { register } from '../../redux/auth/operations';
 import Alert from '../../componets/Alert';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
 import { CSSTransition } from 'react-transition-group';

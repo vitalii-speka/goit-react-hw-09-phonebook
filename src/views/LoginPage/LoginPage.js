@@ -1,14 +1,20 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
-import { logIn, getAuthError, getAuthLoading } from '../../redux/auth';
+import { getAuthError, getAuthLoading } from '../../redux/auth-old';
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import { CSSTransition } from 'react-transition-group';
+import { logIn } from '../../redux/auth/operations';
+import { useAuth } from '../../hooks';
+
 
 import Alert from '../../componets/Alert';
+// import { logIn } from '../../redux/auth/operations';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useAuth();
+  console.log("🚀 ~ LoginPage ~ isLoggedIn:", isLoggedIn)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

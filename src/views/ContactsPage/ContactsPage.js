@@ -11,7 +11,7 @@ import {
   fetchContact,
   getContactsError,
 } from '../../redux/phonebook';
-import { getUserName, getIsToken } from '../../redux/auth';
+import { getUserName, getIsToken } from '../../redux/auth-old';
 
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import Alert from '../../componets/Alert';

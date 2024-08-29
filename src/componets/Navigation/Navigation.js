@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../redux/auth';
+import { getIsAuthenticated } from '../../redux/auth-old';
 import '../AppBar/AppBar.css';
 import paths from '../../paths';
 

@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
-import { getUserName, logOut } from '../../redux/auth';
+import { getUserName } from '../../redux/auth-old';
+import { logOut } from '../../redux/auth/operations';
+import { useAuth } from '../../hooks';
 
 import './UserMenu.css';
 
@@ -10,10 +12,11 @@ import defaultAvatar from './default-user.png';
 export default function UserMenu() {
   const dispatch = useDispatch();
   const name = useSelector(getUserName);
+  const { token } = useAuth();
 
   const onLogOut = useCallback(() => {
-    dispatch(logOut());
-  }, [dispatch]);
+    dispatch(logOut({ token: token }));
+  }, [dispatch, token]);
 
   return (
     <div className="container-user">

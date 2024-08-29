@@ -5,7 +5,7 @@ import './AppBar.css';
 import Navigation from '../Navigation';
 import AuthNav from '../AuthNav';
 import UserMenu from '../UserMenu';
-import { getIsAuthenticated } from '../../redux/auth';
+import { getIsAuthenticated } from '../../redux/auth-old';
 
 export default function AppBar() {
   const isAuthenticated = useSelector(getIsAuthenticated);

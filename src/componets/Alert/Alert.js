@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import '../../style/App.css';
 import { CSSTransition } from 'react-transition-group';
-import { clearError } from '../../redux/auth';
+import { clearError } from '../../redux/auth-old';
 import AlertDismissibleExample from '../../componets/AlertDismissibleExample';
 
 export default function Alert({ text, alert }) {

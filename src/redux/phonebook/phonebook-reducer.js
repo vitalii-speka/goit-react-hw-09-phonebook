@@ -13,7 +13,7 @@ import {
   changeFilter,
   clearFilterInput,
 } from './phonebook-actions';
-import { logoutSuccess } from '../auth';
+import { logoutSuccess } from '../auth-old';
 
 const initialState = {
   contacts: {
