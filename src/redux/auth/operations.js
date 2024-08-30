@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
 
-// axios.defaults.baseURL = "https://goit-task-manager.herokuapp.com/";
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
 // Utility to add JWT
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
+console.log(
+  '🚀 ~ setAuthHeader ~ axios.defaults.headers.common.Authorization:',
+  axios.defaults.headers.common.Authorization,
+);
 
 // Utility to remove JWT
 const clearAuthHeader = () => {
@@ -18,12 +22,9 @@ const clearAuthHeader = () => {
  * POST @ /users/signup
  * body: { name, email, password }
  */
-
 export const register = createAsyncThunk(
-  // "auth/register",
   'users',
   async (credentials, thunkAPI) => {
-    // console.log("🚀 ~ credentials:", credentials)
     try {
       const res = await axios.post('/users/register', credentials);
       console.log('🚀 ~ res:', res);
@@ -39,32 +40,27 @@ export const register = createAsyncThunk(
 /*
  * POST @ /users/login
  * body: { email, password }
- *
- * [POST] https://api.escuelajs.co/api/v1/auth/login
- *# Body
- *{
- *  "email": "john@mail.com",
- *  "password": "changeme"
- *}
- *
+
  */
 export const logIn = createAsyncThunk(
   'users/login',
   async (credentials, thunkAPI) => {
     console.log('🚀 ~ thunkAPI:', thunkAPI);
     console.log('🚀 ~ credentials:', credentials);
+
     try {
       // const res = await axios.post("/users/login", credentials); _ GoIT
       const res = await axios.post('/users/login', credentials);
       console.log('🚀 ~ res:', res);
       // After successful login, add the token to the HTTP header
-      setAuthHeader();
+      setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
+
 
 /*
  * POST @ /users/logout
@@ -73,15 +69,19 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk(
   'users/logout',
   async (credentials, thunkAPI) => {
-    console.log('🚀 ~ credentials logOut:', credentials);
+    console.log('🚀 ~ credentials:', credentials);
     try {
       await axios.post('/users/logout', credentials);
       // After a successful logout, remove the token from the HTTP header
+      console.log('🚀 ~ before clearAuthHeader() line 73');
       clearAuthHeader();
     } catch (error) {
       console.log('🚀 ~ logOut ~ error:', error);
       return thunkAPI.rejectWithValue(error.message);
     }
+    console.log('🚀 ~ credentials:', credentials);
+    console.log('🚀 ~ credentials:', credentials);
+    console.log('🚀 ~ credentials:', credentials);
   },
 );
 /*

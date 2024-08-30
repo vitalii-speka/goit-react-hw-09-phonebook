@@ -22,6 +22,7 @@ const authSlice = createSlice({
       reducer(state, action) {
         state.user = { name: null, email: null };
         state.token = null;
+        state.isRegisterIn = false;
         state.isLoggedIn = false;
       },
     },
@@ -29,24 +30,21 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        console.log("🚀 ~ .addCase ~ action:", action)
-        console.log("🚀 ~ .addCase ~ state:", state)
         state.user = action.payload.user;
         state.userData = action.payload.data;
-        // state.user = action.payload.data;
-        // state.token = action.payload.token;
-        state.isLoggedIn = true;
+        state.isRegisterIn = true;
+        state.isLoggedIn = false;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        console.log("🚀 ~ .addCase ~ action:", action)
-        console.log("🚀 ~ .addCase ~ state:", state)
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.isRegisterIn = true;
         state.isLoggedIn = true;
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
+        state.isRegisterIn = false;
         state.isLoggedIn = false;
       })
       .addCase(refreshUser.pending, state => {
@@ -54,6 +52,7 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.isRegisterIn = true;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
@@ -62,6 +61,8 @@ const authSlice = createSlice({
       })
       .addCase(logOutButton.fulfilled, state => {
         state.user = { name: null, email: null };
+        state.token = null;
+        state.isRegisterIn = false;
         state.isLoggedIn = false;
         state.isRefreshing = false;
       });

@@ -18,20 +18,15 @@ import Alert from '../../componets/Alert';
 
 export default function ContactsPage() {
   const contacts = useSelector(getContacts);
-  console.log("🚀 ~ ContactsPage ~ contacts:", contacts)
   const isLoadingContacts = useSelector(getLoadingContacts);
-  console.log("🚀 ~ ContactsPage ~ isLoadingContacts:", isLoadingContacts)
   const errorContacts = useSelector(getContactsError);
-  console.log("🚀 ~ ContactsPage ~ errorContacts:", errorContacts)
   const name = useSelector(getUserName);
-  console.log("🚀 ~ ContactsPage ~ name:", name)
   const isTokenAuth = useSelector(getIsToken);
-  console.log("🚀 ~ ContactsPage ~ isTokenAuth:", isTokenAuth)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContact());
+    // dispatch(fetchContact());
     if (isTokenAuth) {
       document.title = `Phonebook. Hi, ${name}`;
     }

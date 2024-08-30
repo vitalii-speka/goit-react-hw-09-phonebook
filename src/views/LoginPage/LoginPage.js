@@ -13,8 +13,8 @@ import Alert from '../../componets/Alert';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  const { isLoggedIn } = useAuth();
-  console.log("🚀 ~ LoginPage ~ isLoggedIn:", isLoggedIn)
+  const { user } = useAuth();
+  console.log('🚀 ~ LoginPage ~ isLoggedIn:', user.isRegisterIn);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

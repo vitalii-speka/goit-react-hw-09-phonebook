@@ -10,18 +10,16 @@ import {
   REGISTER,
 } from 'redux-persist';
 // import { authReducer } from './auth-old';
-// import { authReducer } from './auth/slice';
 import { authReducer } from './auth/slice';
 // import logger from 'redux-logger';
 import { phonebookReducer } from './phonebook';
 
 import storage from 'redux-persist/lib/storage';
 
-
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'isLoggedIn'],
+  whitelist: ['token', 'isLoggedIn', 'isRegisterIn', 'user'],
 };
 
 export const store = configureStore({
@@ -35,7 +33,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-  devTools: process.env.NODE_ENV === 'development',
+  // devTools: process.env.NODE_ENV === 'development',
 });
 
 export const persistor = persistStore(store);

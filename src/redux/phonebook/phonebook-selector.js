@@ -3,8 +3,6 @@ import { createSelector } from '@reduxjs/toolkit';
 export const getLoadingContacts = state => state.contacts.loading;
 
 export const getContacts = state => { 
-  console.log("🚀 ~ getContacts ~ state:", state)
-  
   return state.contacts.items.contacts;
 };
 
