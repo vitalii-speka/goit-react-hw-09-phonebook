@@ -7,6 +7,7 @@ import Alert from '../../componets/Alert';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
 import { CSSTransition } from 'react-transition-group';
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
+import { useAuth } from '../../hooks';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -17,6 +18,8 @@ export default function RegisterPage() {
 
   const errorAuth = useSelector(getAuthError);
   const isLoadingAuth = useSelector(getAuthLoading);
+  const { isRegisterIn } = useAuth();
+  console.log("🚀 ~ RegisterPage ~ isRegisterIn:", isRegisterIn)
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
@@ -102,7 +105,6 @@ export default function RegisterPage() {
         </div>
       </CSSTransition>
       {isLoadingAuth && <LinearIndeterminate />}
-
       {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
     </>
   );

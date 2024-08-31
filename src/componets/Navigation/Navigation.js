@@ -1,12 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getIsAuthenticated } from '../../redux/auth-old';
+// import { useSelector } from 'react-redux';
+// import { getIsAuthenticated } from '../../redux/auth-old';
 import '../AppBar/AppBar.css';
 import paths from '../../paths';
+import { useAuth } from '../../hooks';
 
 export default function Navigation() {
-  const getIsToken = useSelector(getIsAuthenticated);
+  // const getIsToken = useSelector(getIsAuthenticated);
+    const { isLoggedIn } = useAuth();
+
 
   return (
     <nav className="nav">
@@ -19,7 +22,7 @@ export default function Navigation() {
         Home
       </NavLink>
 
-      {getIsToken && (
+      {isLoggedIn && (
         <NavLink
           exact
           to={paths.contacts}

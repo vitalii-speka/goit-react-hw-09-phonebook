@@ -8,7 +8,7 @@ import {
 } from "./operations";
 
 const initialState = {
-  user: { name: null, email: null },
+  user: { id: null, name: null, email: null, subscription: null, avatar: null },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
@@ -20,7 +20,7 @@ const authSlice = createSlice({
   reducers: {
     logOutBut: {
       reducer(state, action) {
-        state.user = { name: null, email: null };
+        state.user = { id: null, name: null, email: null };
         state.token = null;
         state.isRegisterIn = false;
         state.isLoggedIn = false;
@@ -42,7 +42,13 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(logOut.fulfilled, state => {
-        state.user = { name: null, email: null };
+        state.user = {
+          id: null,
+          name: null,
+          email: null,
+          subscription: null,
+          avatar: null,
+        };
         state.token = null;
         state.isRegisterIn = false;
         state.isLoggedIn = false;

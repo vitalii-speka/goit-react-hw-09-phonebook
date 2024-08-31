@@ -5,29 +5,20 @@ import { useEffect } from 'react';
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
 // Utility to add JWT
-const setAuthHeader = token => {
+export const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
-console.log(
-  '🚀 ~ setAuthHeader ~ axios.defaults.headers.common.Authorization:',
-  axios.defaults.headers.common.Authorization,
-);
 
 // Utility to remove JWT
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-/*
- * POST @ /users/signup
- * body: { name, email, password }
- */
 export const register = createAsyncThunk(
   'users',
   async (credentials, thunkAPI) => {
     try {
       const res = await axios.post('/users/register', credentials);
-      console.log('🚀 ~ res:', res);
       // After successful registration, add the token to the HTTP header
       // setAuthHeader(res.data.token);
       return res.data;
@@ -45,13 +36,9 @@ export const register = createAsyncThunk(
 export const logIn = createAsyncThunk(
   'users/login',
   async (credentials, thunkAPI) => {
-    console.log('🚀 ~ thunkAPI:', thunkAPI);
-    console.log('🚀 ~ credentials:', credentials);
-
     try {
       // const res = await axios.post("/users/login", credentials); _ GoIT
       const res = await axios.post('/users/login', credentials);
-      console.log('🚀 ~ res:', res);
       // After successful login, add the token to the HTTP header
       setAuthHeader(res.data.token);
       return res.data;
@@ -61,29 +48,25 @@ export const logIn = createAsyncThunk(
   },
 );
 
-
 /*
  * POST @ /users/logout
  * headers: Authorization: Bearer token
  */
-export const logOut = createAsyncThunk(
-  'users/logout',
-  async (credentials, thunkAPI) => {
-    console.log('🚀 ~ credentials:', credentials);
-    try {
-      await axios.post('/users/logout', credentials);
-      // After a successful logout, remove the token from the HTTP header
-      console.log('🚀 ~ before clearAuthHeader() line 73');
-      clearAuthHeader();
-    } catch (error) {
-      console.log('🚀 ~ logOut ~ error:', error);
-      return thunkAPI.rejectWithValue(error.message);
-    }
-    console.log('🚀 ~ credentials:', credentials);
-    console.log('🚀 ~ credentials:', credentials);
-    console.log('🚀 ~ credentials:', credentials);
-  },
-);
+export const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
+  try {
+    console.log(
+      '🚀 ~ setAuthHeader ~ axios.defaults.headers.common.Authorization:',
+      axios.defaults.headers.common.Authorization,
+    );
+
+    await axios.post('/users/logout');
+    // After a successful logout, remove the token from the HTTP header
+    console.log('🚀 ~ before clearAuthHeader() line 73');
+    clearAuthHeader();
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
 /*
  * logout for https://api.escuelajs.co/api/v1/auth/login
  */

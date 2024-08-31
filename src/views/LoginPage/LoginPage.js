@@ -13,16 +13,15 @@ import Alert from '../../componets/Alert';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  const { user } = useAuth();
-  console.log('🚀 ~ LoginPage ~ isLoggedIn:', user.isRegisterIn);
+  // const { user } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertError, setAlertError] = useState(false);
   const [notification, setNotification] = useState(null);
 
-  const errorAuth = useSelector(getAuthError);
-  const isLoadingAuth = useSelector(getAuthLoading);
+  // const errorAuth = useSelector(getAuthError);
+  // const isLoadingAuth = useSelector(getAuthLoading);
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
@@ -79,7 +78,7 @@ export default function LoginPage() {
 
   return (
     <>
-      {isLoadingAuth && <LinearIndeterminate />}
+      {/* {isLoadingAuth && <LinearIndeterminate />} */}
 
       <CSSTransition
         in={true}
@@ -121,7 +120,7 @@ export default function LoginPage() {
       </CSSTransition>
       <Alert text={notification} alert={alertError} />
 
-      {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
+      {/* {errorAuth && <Alert text={errorAuth} alert={errorAuth} />} */}
     </>
   );
 }

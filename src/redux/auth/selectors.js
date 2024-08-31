@@ -2,10 +2,11 @@ export const selectIsLoggedIn = state => {
   // console.log('🚀 ~ selectIsLoggedIn ~ state:', state);
   return state.auth.isLoggedIn;
 };
+export const selectisRegisterIn = state => {
+  return state.auth.isRegisterIn;
+};
 
 export const selectUser = state => {
-  console.log("🚀 ~ selectUser ~ state:", state)
-  // console.log('🚀 ~ selectUser ~ state:', state);
   return state.auth.user;
 };
 
