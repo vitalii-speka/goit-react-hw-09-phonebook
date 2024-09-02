@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './RegisterPage.css';
+import '../../componets/AppBar/AppBar.css';
 import { getAuthError, getAuthLoading } from '../../redux/auth-old';
 import { register } from '../../redux/auth/operations';
 import Alert from '../../componets/Alert';
@@ -8,6 +9,8 @@ import styles from '../../componets/ContactForm/ContactForm.module.css';
 import { CSSTransition } from 'react-transition-group';
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import { useAuth } from '../../hooks';
+import { NavLink } from 'react-router-dom';
+import paths from '../../paths';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -19,7 +22,7 @@ export default function RegisterPage() {
   const errorAuth = useSelector(getAuthError);
   const isLoadingAuth = useSelector(getAuthLoading);
   const { isRegisterIn } = useAuth();
-  console.log("🚀 ~ RegisterPage ~ isRegisterIn:", isRegisterIn)
+  // console.log('🚀 ~ RegisterPage ~ isRegisterIn:', isRegisterIn);
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
@@ -53,7 +56,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <>
+    <div>
       <CSSTransition
         in={true}
         appear={true}
@@ -61,51 +64,68 @@ export default function RegisterPage() {
         classNames="fade-scale"
         unmountOnExit
       >
-        <div>
-          <h2>Create account</h2>
+        {isRegisterIn ? (
+          <h2>
+            Now you could move to:
+            <NavLink
+              exact
+              to={paths.login}
+              className="navLinkRegisterPage"
+              activeClassName="navLinkActive"
+            >
+              Login
+            </NavLink>
+          </h2>
+        ) : (
+          <>
+            <div>
+              <h2>Create account</h2>
 
-          <form onSubmit={handleSubmit} className={styles.TaskEditor}>
-            <label className={styles.TaskEditor_label}>
-              Name
-              <input
-                className={styles.TaskEditor_input}
-                type="text"
-                name="name"
-                value={name}
-                onChange={handleChange}
-              />
-            </label>
+              <form onSubmit={handleSubmit} className={styles.TaskEditor}>
+                <label className={styles.TaskEditor_label}>
+                  Name
+                  <input
+                    className={styles.TaskEditor_input}
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={handleChange}
+                  />
+                </label>
 
-            <label className={styles.TaskEditor_label}>
-              Email
-              <input
-                className={styles.TaskEditor_input}
-                type="email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </label>
+                <label className={styles.TaskEditor_label}>
+                  Email
+                  <input
+                    className={styles.TaskEditor_input}
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                  />
+                </label>
 
-            <label className={styles.TaskEditor_label}>
-              Password
-              <input
-                className={styles.TaskEditor_input}
-                type="password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-            </label>
+                <label className={styles.TaskEditor_label}>
+                  Password
+                  <input
+                    className={styles.TaskEditor_input}
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={handleChange}
+                  />
+                </label>
 
-            <button className={styles.TaskEditor_button} type="submit">
-              Sing Up
-            </button>
-          </form>
-        </div>
+                <button className={styles.TaskEditor_button} type="submit">
+                  Sing Up
+                </button>
+              </form>
+            </div>
+          </>
+        )}
       </CSSTransition>
+
       {isLoadingAuth && <LinearIndeterminate />}
       {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
-    </>
+    </div>
   );
 }

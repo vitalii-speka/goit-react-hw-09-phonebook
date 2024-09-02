@@ -21,6 +21,7 @@ export const register = createAsyncThunk(
       const res = await axios.post('/users/register', credentials);
       // After successful registration, add the token to the HTTP header
       // setAuthHeader(res.data.token);
+      alert('user registred')
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -54,14 +55,14 @@ export const logIn = createAsyncThunk(
  */
 export const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
   try {
-    console.log(
-      '🚀 ~ setAuthHeader ~ axios.defaults.headers.common.Authorization:',
-      axios.defaults.headers.common.Authorization,
-    );
+    // console.log(
+    //   '🚀 ~ setAuthHeader ~ axios.defaults.headers.common.Authorization:',
+    //   axios.defaults.headers.common.Authorization,
+    // );
 
     await axios.post('/users/logout');
     // After a successful logout, remove the token from the HTTP header
-    console.log('🚀 ~ before clearAuthHeader() line 73');
+    // console.log('🚀 ~ before clearAuthHeader() line 73');
     clearAuthHeader();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);

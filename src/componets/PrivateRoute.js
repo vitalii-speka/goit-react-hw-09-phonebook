@@ -9,13 +9,13 @@ export default function PrivateRoute({ children, ...routeProps }) {
   // const isAuthenticated = useSelector(getIsAuthenticated);
   const { isRegisterIn, isLoggedIn } = useAuth();
   // console.log('🚀 ~ PrivateRoute ~ isLoggedIn:', isLoggedIn);
-  console.log('🚀 12 ~ PrivateRoute ~ isRegisterIn:', isRegisterIn);
+  // console.log('🚀 12 ~ PrivateRoute ~ isRegisterIn:', isRegisterIn);
 
   return (
     <Route {...routeProps}>
-      {isRegisterIn && <Redirect to={paths.login} />}
-      {isLoggedIn && isRegisterIn ? children : <Redirect to={paths.login} />}
-      {/* {isLoggedIn ? children : <Redirect to={paths.login} />} */}
+      {/* {isRegisterIn && <Redirect to={paths.register} />}
+      {isLoggedIn && <Redirect to={paths.login} />} */}
+      {isLoggedIn ? children : <Redirect to={paths.login} />}
     </Route>
   );
 }

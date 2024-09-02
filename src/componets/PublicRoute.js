@@ -8,16 +8,23 @@ import { useAuth } from '../hooks';
 export default function PublicRoute({ children, ...routeProps }) {
   // const isAuthenticated = useSelector(getIsAuthenticated);
   const { isRegisterIn, isLoggedIn } = useAuth();
-  console.log('🚀 11 ~ PublicRoute ~ routeProps:', routeProps);
-  console.log('🚀 12 ~ PublicRoute ~ isRegisterIn', isRegisterIn);
+  // console.log('🚀 11 ~ PublicRoute ~ routeProps:', routeProps);
+  // console.log('🚀 12 ~ PublicRoute ~ isRegisterIn', isRegisterIn);
+
+  /* && isLoggedIn !== 'true'*/
 
   return (
     <Route {...routeProps}>
       {isLoggedIn && routeProps.restricted ? (
-        <Redirect to={paths.contacts} />
+        <Redirect to={paths.login} />
       ) : (
         children
       )}
+      {/* {isLoggedIn && routeProps.restricted ? (
+        <Redirect to={paths.contacts} />
+      ) : (
+        children
+      )} */}
       {/* {isAuthenticated && routeProps.restricted ? (
         <Redirect to={paths.contacts} />
       ) : (

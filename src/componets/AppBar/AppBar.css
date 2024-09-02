@@ -40,6 +40,10 @@
   margin-right: 15px;
   color: #000;
 }
+.navLinkRegisterPage {
+  margin-left: 15px;
+  color: #000;
+}
 
 .navLinkActive {
   color: blue;
