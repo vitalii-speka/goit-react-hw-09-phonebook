@@ -42,19 +42,6 @@ export const addContact = ({ name, number }) => async dispatch => {
   }
 };
 
-/* 
-export const removeContact = id => dispatch => {
-  dispatch(removeContactRequest());
-
-  axios
-    .delete(`/contacts/${id}`)
-    .then(() => {
-      dispatch(removeContactSucces(id));
-    })
-    .catch(error => dispatch(removeContactError(error.message)));
-};
-*/
-
 export const removeContact = id => async dispatch => {
   dispatch(removeContactRequest());
 

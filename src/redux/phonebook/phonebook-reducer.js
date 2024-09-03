@@ -28,10 +28,11 @@ const items = createReducer(initialState.contacts.items, {
   [fetchContactSucces]: (_, { payload }) => payload,
   [addContactSucces]: (state, { payload }) => {
     // console.log("🚀 30 ~ payload:", payload)
-    return [payload.contact, ...state]
+    return [payload.contact, ...state];
   },
-  [removeContactSucces]: (state, { payload }) =>
-    state.filter(({ id }) => id !== payload),
+  [removeContactSucces]: (state, { payload }) => {
+    return state.filter(({ _id }) => _id !== payload);
+  },
   [logoutSuccess]: () => initialState.contacts.items,
 });
 
