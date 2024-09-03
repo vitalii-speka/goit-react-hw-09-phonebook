@@ -16,12 +16,17 @@ export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorState, seterrorState] = useState('');
 
   const dispatch = useDispatch();
 
+  /* old reducer 
   const errorAuth = useSelector(getAuthError);
   const isLoadingAuth = useSelector(getAuthLoading);
-  const { isRegisterIn } = useAuth();
+  */
+  const { isRegisterIn, isLoggedIn, error } = useAuth();
+  console.log('🚀 27 ~ RegisterPage ~ isLoggedIn:', isLoggedIn);
+  console.log('🚀 28 ~ RegisterPage ~ error:', error);
   // console.log('🚀 ~ RegisterPage ~ isRegisterIn:', isRegisterIn);
 
   const handleChange = useCallback(e => {
@@ -48,6 +53,19 @@ export default function RegisterPage() {
   const handleSubmit = e => {
     e.preventDefault();
 
+    if (name === '') {
+      seterrorState(`field 'Name' couldn't be empry`);
+      return;
+    }
+    if (email === '') {
+      seterrorState(`field 'Email' couldn't be empry`);
+      return;
+    }
+    if (password === '') {
+      seterrorState(`field 'Password' couldn't be empry`);
+      return;
+    }
+
     dispatch(register({ name: name, email: email, password: password }));
 
     setName('');
@@ -56,7 +74,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
+    <>
       <CSSTransition
         in={true}
         appear={true}
@@ -124,8 +142,9 @@ export default function RegisterPage() {
         )}
       </CSSTransition>
 
-      {isLoadingAuth && <LinearIndeterminate />}
-      {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
-    </div>
+      {isLoggedIn && <LinearIndeterminate />}
+      {errorState && <Alert text={true} alert={errorState} />}
+      {error && <Alert text={true} alert={error} />}
+    </>
   );
 }

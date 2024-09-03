@@ -1,34 +1,35 @@
-import React, { useCallback, useEffect } from 'react';
+// import React, { useCallback, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+// import { clearError } from '../../redux/auth-old';
 import '../../style/App.css';
 import { CSSTransition } from 'react-transition-group';
-import { clearError } from '../../redux/auth-old';
 import AlertDismissibleExample from '../../componets/AlertDismissibleExample';
 
 export default function Alert({ text, alert }) {
-  const dispatch = useDispatch();
+  console.log('🚀 10 ~ Alert ~ text:', text);
+  console.log('🚀 11 ~ Alert ~ alert:', alert);
 
+  /* useEffect with old-redux-auth
+  const dispatch = useDispatch();
   const onClearError = useCallback(() => {
     dispatch(clearError());
   }, [dispatch]);
 
+
   useEffect(() => {
-    if (alert) {
+    if (text) {
       setTimeout(() => {
+        console.log('🚀 ~ setTimeout ~ onClearError():', onClearError());
         onClearError();
-      }, 5000);
+      }, 1000);
     }
-  }, [alert, onClearError]);
+  }, [text, onClearError]);
+    */
 
   return (
-    <CSSTransition
-      in={text}
-      timeout={250}
-      classNames="fade-scale"
-      unmountOnExit
-    >
-      <AlertDismissibleExample text={text} />
+    <CSSTransition in={text} timeout={250} classNames="fade-scale" unmountOnExit>
+      <AlertDismissibleExample text={alert} />
     </CSSTransition>
   );
 }

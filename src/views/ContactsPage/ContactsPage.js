@@ -15,6 +15,7 @@ import { getUserName, getIsToken } from '../../redux/auth-old';
 
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import Alert from '../../componets/Alert';
+import { useAuth } from '../../hooks';
 
 export default function ContactsPage() {
   const contacts = useSelector(getContacts);
@@ -22,6 +23,9 @@ export default function ContactsPage() {
   const errorContacts = useSelector(getContactsError);
   const name = useSelector(getUserName);
   const isTokenAuth = useSelector(getIsToken);
+
+    const { isRegisterIn } = useAuth();
+
 
   const dispatch = useDispatch();
 

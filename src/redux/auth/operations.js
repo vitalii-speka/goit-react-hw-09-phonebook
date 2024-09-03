@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 axios.defaults.baseURL = 'http://localhost:8000/api';
 
@@ -14,6 +14,10 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
+export const clearError = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
 export const register = createAsyncThunk(
   'users',
   async (credentials, thunkAPI) => {
@@ -24,6 +28,7 @@ export const register = createAsyncThunk(
       alert('user registred')
       return res.data;
     } catch (error) {
+      console.log('🚀 27 ~ error:', error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   },
@@ -55,34 +60,13 @@ export const logIn = createAsyncThunk(
  */
 export const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
   try {
-    // console.log(
-    //   '🚀 ~ setAuthHeader ~ axios.defaults.headers.common.Authorization:',
-    //   axios.defaults.headers.common.Authorization,
-    // );
-
     await axios.post('/users/logout');
     // After a successful logout, remove the token from the HTTP header
-    // console.log('🚀 ~ before clearAuthHeader() line 73');
     clearAuthHeader();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
-/*
- * logout for https://api.escuelajs.co/api/v1/auth/login
- */
-// export const logOutButton = text => {};
-export const logOutButton = createAsyncThunk(
-  'auth/logoutButton',
-  (_, thunkAPI) => {
-    try {
-      // After a successful logout, remove the token from the HTTP header
-      clearAuthHeader();
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  },
-);
 
 /*
  * GET @ /users/current
