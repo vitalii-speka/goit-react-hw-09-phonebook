@@ -1,4 +1,3 @@
-// import React from 'react';
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +9,6 @@ export default function ContactList() {
   const dispatch = useDispatch();
 
   const contacts = useSelector(getVisibleContacts);
-  console.log('🚀 13 ~ ContactList ~ contacts getVisibleContacts:', contacts);
 
   return (
     <CSSTransition in={contacts.length > 0} timeout={250} classNames="fade">

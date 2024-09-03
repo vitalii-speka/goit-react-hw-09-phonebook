@@ -11,7 +11,6 @@ import {
   fetchContact,
   getContactsError,
 } from '../../redux/phonebook';
-// import { getUserName, getIsToken } from '../../redux/auth-old';
 
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import Alert from '../../componets/Alert';
@@ -21,8 +20,6 @@ export default function ContactsPage() {
   const contacts = useSelector(getContacts);
   const isLoadingContacts = useSelector(getLoadingContacts);
   const errorContacts = useSelector(getContactsError);
-  // const name = useSelector(getUserName);
-  // const isTokenAuth = useSelector(getIsToken);
 
   const {  token, user } = useAuth();
 

@@ -16,7 +16,6 @@ export default function ContactForm() {
   const [notification, setNotification] = useState(null);
 
   const contacts = useSelector(getContacts);
-  console.log('🚀 ~ ContactForm ~ contacts:', contacts);
 
   const handleCheange = e => {
     const { name, value } = e.currentTarget;
@@ -66,7 +65,6 @@ export default function ContactForm() {
         return;
       }
       
-      console.log("🚀 ~ ContactForm ~ AFTER contacts.some:")
       dispatch(addContact({ name, number }));
       reset();
     },
@@ -119,7 +117,7 @@ export default function ContactForm() {
         </form>
       </CSSTransition>
 
-      <Alert text={notification} alert={alertError} />
+      <Alert text={alertError} alert={notification} />
     </>
   );
 }

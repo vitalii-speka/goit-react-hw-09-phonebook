@@ -28,7 +28,6 @@ export const register = createAsyncThunk(
       alert('user registred');
       return res.data;
     } catch (error) {
-      console.log('🚀 27 ~ error:', error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   },

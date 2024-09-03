@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './RegisterPage.css';
 import '../../componets/AppBar/AppBar.css';
-import { getAuthError, getAuthLoading } from '../../redux/auth-old';
+// import { getAuthError, getAuthLoading } from '../../redux/auth-old';
 import { register } from '../../redux/auth/operations';
 import Alert from '../../componets/Alert';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
@@ -16,7 +16,8 @@ export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorState, seterrorState] = useState('');
+  const [alertError, setAlertError] = useState(false);
+  const [notification, setNotification] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -24,10 +25,7 @@ export default function RegisterPage() {
   const errorAuth = useSelector(getAuthError);
   const isLoadingAuth = useSelector(getAuthLoading);
   */
-  const { isRegisterIn, isLoggedIn, error } = useAuth();
-  console.log('🚀 27 ~ RegisterPage ~ isLoggedIn:', isLoggedIn);
-  console.log('🚀 28 ~ RegisterPage ~ error:', error);
-  // console.log('🚀 ~ RegisterPage ~ isRegisterIn:', isRegisterIn);
+  const { isRegisterIn, isLoggedIn, error: errorAuth } = useAuth();
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
@@ -50,27 +48,44 @@ export default function RegisterPage() {
     }
   }, []);
 
+  const alertReset = () => {
+    setAlertError(false);
+    setNotification(null);
+  };
+
+  const resetInput = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setAlertError(false);
+    setNotification(null);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
 
+    const alertNotifocation = notification => {
+      setAlertError(true);
+      setNotification(notification);
+
+      setTimeout(alertReset, 2500);
+    };
+
     if (name === '') {
-      seterrorState(`field 'Name' couldn't be empry`);
+      alertNotifocation('Please enter your name');
       return;
     }
     if (email === '') {
-      seterrorState(`field 'Email' couldn't be empry`);
+      alertNotifocation('Please enter your e-mail');
       return;
     }
     if (password === '') {
-      seterrorState(`field 'Password' couldn't be empry`);
+      alertNotifocation('Please enter your password');
       return;
     }
 
     dispatch(register({ name: name, email: email, password: password }));
-
-    setName('');
-    setEmail('');
-    setPassword('');
+    resetInput();
   };
 
   return (
@@ -84,7 +99,7 @@ export default function RegisterPage() {
       >
         {isRegisterIn ? (
           <h2>
-            Now you could move to:
+            You registered. Now, you need to move :
             <NavLink
               exact
               to={paths.login}
@@ -143,8 +158,8 @@ export default function RegisterPage() {
       </CSSTransition>
 
       {isLoggedIn && <LinearIndeterminate />}
-      {errorState && <Alert text={true} alert={errorState} />}
-      {error && <Alert text={true} alert={error} />}
+      <Alert text={alertError} alert={notification} />
+      {errorAuth && <Alert text={true} alert={errorAuth} />}
     </>
   );
 }
