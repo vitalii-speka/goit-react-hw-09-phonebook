@@ -10,11 +10,12 @@ export default function ContactList() {
   const dispatch = useDispatch();
 
   const contacts = useSelector(getVisibleContacts);
+  console.log('🚀 13 ~ ContactList ~ contacts getVisibleContacts:', contacts);
 
   return (
     <CSSTransition in={contacts.length > 0} timeout={250} classNames="fade">
       <TransitionGroup component="ul" className="TaskList">
-        {contacts.map(({ id, name, number }) => (
+        {contacts.map(({ _id: id, name, number }) => (
           <CSSTransition key={id} timeout={300}>
             <li className="TaskList_item">
               {name + ' : ' + number}

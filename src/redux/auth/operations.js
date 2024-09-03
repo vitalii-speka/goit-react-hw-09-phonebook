@@ -25,7 +25,7 @@ export const register = createAsyncThunk(
       const res = await axios.post('/users/register', credentials);
       // After successful registration, add the token to the HTTP header
       // setAuthHeader(res.data.token);
-      alert('user registred')
+      alert('user registred');
       return res.data;
     } catch (error) {
       console.log('🚀 27 ~ error:', error.message);
@@ -60,6 +60,9 @@ export const logIn = createAsyncThunk(
  */
 export const logOut = createAsyncThunk('users/logout', async (_, thunkAPI) => {
   try {
+    /* get token from locaStorage
+    const token = JSON.parse(localStorage.getItem('persist:auth')).token;
+     */
     await axios.post('/users/logout');
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();

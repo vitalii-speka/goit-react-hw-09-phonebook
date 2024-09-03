@@ -17,7 +17,5 @@ export const selectIsRefreshing = state => {
   return state.auth.isRefreshing;
 };
 export const selectIsError = state => {
-  console.log("🚀 ~ selectIsError ~ state:", state)
   return state.auth.error;
 };
-

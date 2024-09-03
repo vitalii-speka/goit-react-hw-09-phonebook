@@ -7,8 +7,6 @@ import { CSSTransition } from 'react-transition-group';
 import AlertDismissibleExample from '../../componets/AlertDismissibleExample';
 
 export default function Alert({ text, alert }) {
-  console.log('🚀 10 ~ Alert ~ text:', text);
-  console.log('🚀 11 ~ Alert ~ alert:', alert);
 
   /* useEffect with old-redux-auth
   const dispatch = useDispatch();

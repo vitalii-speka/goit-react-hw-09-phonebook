@@ -17,7 +17,8 @@ export const fetchContact = () => async dispatch => {
   try {
     const { data } = await axios.get(`/contacts`);
 
-    dispatch(fetchContactSucces(data));
+    console.log('🚀 ~ fetchContact ~ data.contacts:', data.contacts);
+    dispatch(fetchContactSucces(data.contacts));
   } catch (error) {
     dispatch(fetchContactError(error.message));
   }
@@ -27,7 +28,7 @@ export const addContact = ({ name, number }) => async dispatch => {
   const contacts = {
     name,
     number,
-    completed: false,
+    // completed: false,
   };
 
   dispatch(addContactRequest());

@@ -19,33 +19,33 @@ import { useAuth } from '../../hooks';
 
 export default function ContactsPage() {
   const contacts = useSelector(getContacts);
+  console.log("🚀 ~ ContactsPage ~ contacts:", contacts)
   const isLoadingContacts = useSelector(getLoadingContacts);
   const errorContacts = useSelector(getContactsError);
-  const name = useSelector(getUserName);
-  const isTokenAuth = useSelector(getIsToken);
+  // const name = useSelector(getUserName);
+  // const isTokenAuth = useSelector(getIsToken);
 
-    const { isRegisterIn } = useAuth();
-
+  const { isRegisterIn, token, user } = useAuth();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(fetchContact());
-    if (isTokenAuth) {
-      document.title = `Phonebook. Hi, ${name}`;
+    dispatch(fetchContact());
+    if (token) {
+      document.title = `Phonebook. Hi, ${user.name}`;
     }
 
-    if (!isTokenAuth) {
+    if (!token) {
       return () => {
         document.title = `phonebook`;
       };
     }
-  }, [dispatch, isTokenAuth, name]);
+  }, [dispatch, token, user.name]);
 
   return (
     <div className="App">
       <h1>Contacts Page</h1>
-      {/* <ContactForm />
+      <ContactForm />
       {contacts.length !== 0 ? (
         <ContactsTitle />
       ) : (
@@ -54,7 +54,7 @@ export default function ContactsPage() {
       {isLoadingContacts && <LinearIndeterminate />}
       {errorContacts && <Alert text={errorContacts} alert={errorContacts} />}
       <Filter />
-      <ContactList /> */}
+      <ContactList />
     </div>
   );
 }
