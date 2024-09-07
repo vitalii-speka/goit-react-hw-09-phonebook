@@ -15,8 +15,9 @@ import {
   clearError,
 } from './auth-actions';
 
-// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
-axios.defaults.baseURL = 'http://localhost:8000/api';
+// axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.baseURL =
+  'https://nodejs-homework-rest-api-y0ve.onrender.com/api';
 
 const token = {
   set(token) {
