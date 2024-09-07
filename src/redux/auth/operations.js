@@ -3,8 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 // import { useEffect } from 'react';
 
 export const instance = axios.create({
-  // baseURL: 'https://rus-aggression-api.herokuapp.com/api',
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://nodejs-homework-rest-api-y0ve.onrender.com/api',
+  // baseURL: 'http://localhost:8000/api',
 });
 
 const token = {
@@ -110,7 +110,6 @@ export const refreshCurrentUser = createAsyncThunk(
     }
   },
 );
-
 
 /*next step => add Google login
   http://localhost:8000/api/users/google
