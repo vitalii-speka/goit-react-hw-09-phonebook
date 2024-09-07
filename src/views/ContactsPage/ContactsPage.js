@@ -15,21 +15,26 @@ import {
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import Alert from '../../componets/Alert';
 import { useAuth } from '../../hooks';
+// import { tokenInstance } from '../../redux/auth/operations';
 
 export default function ContactsPage() {
   const contacts = useSelector(getContacts);
   const isLoadingContacts = useSelector(getLoadingContacts);
   const errorContacts = useSelector(getContactsError);
 
-  const {  token, user } = useAuth();
+  const { token, user } = useAuth();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContact());
+    
     if (token) {
+      // tokenInstance.set(token);
+
       document.title = `Phonebook. Hi, ${user.name}`;
     }
+    
+    dispatch(fetchContact());
 
     if (!token) {
       return () => {

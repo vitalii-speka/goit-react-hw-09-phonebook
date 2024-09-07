@@ -32,7 +32,7 @@ const routes = [
     exact: true,
     component: lazy(() =>
       import(
-        './views/RegisterPage/RegisterPage.js' /* webpackChunkName: "register-view" */
+        './views/RegisterPage/RegisterPage.js' /* webpackChunkName: "google-view" */
       ),
     ),
     private: false,

@@ -26,6 +26,16 @@ const AuthNav = () => {
       >
         Log In
       </NavLink>
+      
+      {/*  next step => add Google login
+      <NavLink
+        to={paths.google}
+        // to={'http://localhost:8000/api/users/google'}
+        className="navLink"
+        activeClassName="navLinkActive"
+      >
+        Continue with Google
+      </NavLink> */}
     </nav>
   );
 };

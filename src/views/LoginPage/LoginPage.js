@@ -1,15 +1,14 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
-import { getAuthError, getAuthLoading } from '../../redux/auth-old';
-import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
+// import { getAuthError, getAuthLoading } from '../../redux/auth-old';
+// import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import { CSSTransition } from 'react-transition-group';
 import { logIn } from '../../redux/auth/operations';
-import { useAuth } from '../../hooks';
-
+// import { useAuth } from '../../hooks';
 
 import Alert from '../../componets/Alert';
-// import { logIn } from '../../redux/auth/operations';
+// import { signInGoogle } from '../../redux/auth/operations';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -76,6 +75,12 @@ export default function LoginPage() {
     [dispatch, email, password],
   );
 
+  /*
+  const onSignInGoogle = useCallback(() => {
+    dispatch(signInGoogle());
+  }, [dispatch]);
+  */
+
   return (
     <>
       {/* {isLoadingAuth && <LinearIndeterminate />} */}
@@ -115,6 +120,12 @@ export default function LoginPage() {
             <button className={styles.TaskEditor_button} type="submit">
               Log In
             </button>
+            {/* <button
+              className={styles.TaskEditor_button}
+              onClick={onSignInGoogle}
+            >
+              Continue with Google
+            </button> */}
           </form>
         </div>
       </CSSTransition>

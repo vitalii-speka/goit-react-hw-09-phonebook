@@ -32,7 +32,7 @@ export const register = credentials => async dispatch => {
 
   try {
     const { data } = await axios.post('/users/register', credentials, {
-    // const { data } = await axios.post('/users/signup', credentials, {
+      // const { data } = await axios.post('/users/signup', credentials, {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',

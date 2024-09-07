@@ -26,6 +26,7 @@ export default function RegisterPage() {
   const isLoadingAuth = useSelector(getAuthLoading);
   */
   const { isRegisterIn, isLoggedIn, error: errorAuth } = useAuth();
+  console.log("🚀 ~ RegisterPage ~ errorAuth:", errorAuth)
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
