@@ -1,37 +1,37 @@
-import {
-  fetchContactRequest,
-  fetchContactSucces,
-  fetchContactError,
-  addContactRequest,
-  addContactSucces,
-  addContactError,
-  removeContactRequest,
-  removeContactSucces,
-  removeContactError,
-} from './phonebook-actions';
-import { instance } from '../auth/operations';
+// import {
+//   fetchContactRequest,
+//   fetchContactSucces,
+//   fetchContactError,
+//   addContactRequest,
+//   addContactSucces,
+//   addContactError,
+//   removeContactRequest,
+//   removeContactSucces,
+//   removeContactError,
+// } from './phonebook-actions';
+// import { instance } from '../auth/operations';
 
+/*
 export const fetchContact = () => async dispatch => {
   dispatch(fetchContactRequest());
 
-  /* token from localStorage
+   token from localStorage
   if (localStorage.getItem('persist:auth')) {
     const { token } = JSON.parse(localStorage.getItem('persist:auth'));
     console.log('🚀 ~ fetchContact ~ date:', token);
   }
- */
+
 
   try {
     const { data } = await instance.get(
       `/contacts`,
-      /* params
       {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       },
-      */
+      
     );
 
     dispatch(fetchContactSucces(data.contacts));
@@ -40,7 +40,10 @@ export const fetchContact = () => async dispatch => {
     dispatch(fetchContactError(error.message));
   }
 };
+*/
 
+
+/* 
 export const addContact =
   ({ name, number }) =>
   async dispatch => {
@@ -60,7 +63,9 @@ export const addContact =
       dispatch(addContactError(error.message));
     }
   };
+*/
 
+/*
 export const removeContact = id => async dispatch => {
   dispatch(removeContactRequest());
 
@@ -72,3 +77,6 @@ export const removeContact = id => async dispatch => {
     dispatch(removeContactError(error.message));
   }
 };
+
+
+*/

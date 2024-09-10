@@ -5,7 +5,8 @@ const routes = [
   {
     name: 'Home',
     path: paths.home,
-    exact: true,
+    
+
     component: lazy(() =>
       import(
         './views/HomePage/HomePage.js' /* webpackChunkName: "home-view" */
@@ -17,7 +18,6 @@ const routes = [
   {
     name: 'Login',
     path: paths.login,
-    exact: true,
     component: lazy(() =>
       import(
         './views/LoginPage/LoginPage.js' /* webpackChunkName: "logim-view" */
@@ -29,7 +29,6 @@ const routes = [
   {
     name: 'Register',
     path: paths.register,
-    exact: true,
     component: lazy(() =>
       import(
         './views/RegisterPage/RegisterPage.js' /* webpackChunkName: "google-view" */
@@ -41,7 +40,6 @@ const routes = [
   {
     name: 'Contacts',
     path: paths.contacts,
-    exact: true,
     component: lazy(() =>
       import(
         './views/ContactsPage/ContactsPage.js' /* webpackChunkName: "contacts-view" */

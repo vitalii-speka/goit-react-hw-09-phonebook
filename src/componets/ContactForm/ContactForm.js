@@ -1,9 +1,16 @@
+import React from 'react';
 import styles from './ContactForm.module.css';
 import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { getContacts, addContact } from '../../redux/phonebook';
+// import { getContacts, addContact } from '../../redux/phonebook';
+import {
+  // getisLoadingContacts,
+  selectGetContacts,
+  // getContactsError,
+} from '../../redux/contacts/selectors';
 import Alert from '../Alert';
+import { addContact } from '../../redux/contacts/operations';
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -15,7 +22,8 @@ export default function ContactForm() {
   const [alertError, setAlertError] = useState(false);
   const [notification, setNotification] = useState(null);
 
-  const contacts = useSelector(getContacts);
+  // const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectGetContacts);
 
   const handleCheange = e => {
     const { name, value } = e.currentTarget;
@@ -64,7 +72,7 @@ export default function ContactForm() {
         alertNotifocation(`${name} is already in contacts`);
         return;
       }
-      
+
       dispatch(addContact({ name, number }));
       reset();
     },

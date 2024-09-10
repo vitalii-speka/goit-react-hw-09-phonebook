@@ -5,36 +5,36 @@ import ContactList from '../../componets/ContactList';
 import Filter from '../../componets/Filter';
 import '../../style/App.css';
 import ContactsTitle from '../../componets/ContactsTitle';
+
 import {
-  getLoadingContacts,
-  getContacts,
-  fetchContact,
+  getisLoadingContacts,
+  selectGetContacts,
   getContactsError,
-} from '../../redux/phonebook';
+} from '../../redux/contacts/selectors';
 
 import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import Alert from '../../componets/Alert';
 import { useAuth } from '../../hooks';
-// import { tokenInstance } from '../../redux/auth/operations';
+import { getContacts } from '../../redux/contacts/operations';
+import { instance } from '../../redux/auth/operations';
 
 export default function ContactsPage() {
-  const contacts = useSelector(getContacts);
-  const isLoadingContacts = useSelector(getLoadingContacts);
+  const contacts = useSelector(selectGetContacts);
+  const isLoadingContacts = useSelector(getisLoadingContacts);
   const errorContacts = useSelector(getContactsError);
 
-  const { token, user } = useAuth();
+  const {  token, user } = useAuth();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
     if (token) {
-      // tokenInstance.set(token);
+      instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       document.title = `Phonebook. Hi, ${user.name}`;
     }
-    
-    dispatch(fetchContact());
+
+    dispatch(getContacts());
 
     if (!token) {
       return () => {
@@ -47,15 +47,23 @@ export default function ContactsPage() {
     <div className="App">
       <h1>Contacts Page</h1>
       <ContactForm />
-      {contacts.length !== 0 ? (
-        <ContactsTitle />
+      {isLoadingContacts ? (
+        <LinearIndeterminate />
       ) : (
-        <h2>in Phonebook, no contacts</h2>
+        <>
+          {contacts.length !== 0 ? (
+            <>
+              <ContactsTitle />
+            </>
+          ) : (
+            <h2>in Phonebook, no contacts</h2>
+          )}
+
+          {/* <Filter /> */}
+          <ContactList />
+        </>
       )}
-      {isLoadingContacts && <LinearIndeterminate />}
       {errorContacts && <Alert text={errorContacts} alert={errorContacts} />}
-      <Filter />
-      <ContactList />
     </div>
   );
 }

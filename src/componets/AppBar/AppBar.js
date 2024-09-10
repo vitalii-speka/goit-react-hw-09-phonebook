@@ -1,3 +1,4 @@
+import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './AppBar.css';
 import Navigation from '../Navigation';
@@ -7,7 +8,6 @@ import { useAuth } from '../../hooks';
 
 export default function AppBar() {
   const { isLoggedIn } = useAuth();
-
 
   return (
     <header className="appBar">

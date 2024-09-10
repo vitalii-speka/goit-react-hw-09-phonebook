@@ -16,7 +16,7 @@ export const useAuth = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
   const user = useSelector(selectUser);
   const token = useSelector(selectIsToken);
-  const error = useSelector(selectIsError);
+  const errorAuth = useSelector(selectIsError);
 
   return {
     isRegisterIn,
@@ -25,6 +25,6 @@ export const useAuth = () => {
     token,
     user,
     isRefreshing,
-    error,
+    errorAuth,
   };
 };
