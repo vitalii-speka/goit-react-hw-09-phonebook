@@ -59,7 +59,7 @@ export default function ContactsPage() {
             <h2>in Phonebook, no contacts</h2>
           )}
 
-          {/* <Filter /> */}
+          <Filter />
           <ContactList />
         </>
       )}
