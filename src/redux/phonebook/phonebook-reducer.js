@@ -1,3 +1,4 @@
+/* 
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import {
@@ -13,7 +14,7 @@ import {
   changeFilter,
   clearFilterInput,
 } from './phonebook-actions';
-import { logoutSuccess } from '../auth-old';
+// import { logoutSuccess } from '../auth-old';
 
 const initialState = {
   contacts: {
@@ -33,7 +34,7 @@ const items = createReducer(initialState.contacts.items, {
   [removeContactSucces]: (state, { payload }) => {
     return state.filter(({ _id }) => _id !== payload);
   },
-  [logoutSuccess]: () => initialState.contacts.items,
+  // [logoutSuccess]: () => initialState.contacts.items,
 });
 
 const loading = createReducer(false, {
@@ -65,3 +66,6 @@ export default combineReducers({
   loading,
   error,
 });
+
+
+*/

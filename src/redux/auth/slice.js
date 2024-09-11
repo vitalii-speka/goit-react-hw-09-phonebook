@@ -11,12 +11,20 @@ const initialState = {
   error: null,
 };
 
-const handlePending = (state, { payload }) => {
+const handlePending = (state, _) => {
   state.isLoading = true;
 };
 const handleRejected = (state, { payload }) => {
   state.isLoading = false;
   state.error = payload;
+};
+const handleResetState = (state, _) => {
+  state.user = initialState.user;
+  state.token = null;
+  state.isRegisterIn = false;
+  state.isLoggedIn = false;
+  state.isLoading = false;
+  state.error = '';
 };
 
 const authSlice = createSlice({
@@ -24,52 +32,37 @@ const authSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+      .addCase(register.fulfilled, (state, { payload }) => {
+        state.user = payload.user;
         state.isRegisterIn = true;
         state.isLoggedIn = false;
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(logIn.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+      .addCase(logIn.fulfilled, (state, { payload }) => {
+        state.user = payload.user;
+        state.token = payload.token;
         state.isRegisterIn = true;
         state.isLoggedIn = true;
         state.error = null;
       })
-      .addCase(logOut.fulfilled, state => {
-        state.user = initialState.user;
-        state.token = null;
-        state.isRegisterIn = false;
-        state.isLoggedIn = false;
-        state.isLoading = false;
-        state.error = '';
-      })
-      // .addCase(signInGoogle.fulfilled, (state, action) => {
-      // })
-      // .addCase(signInGoogle.pending, (state, action) => {
-      // })
-      // .addCase(signInGoogle.rejected, (state, action) => {
+      // .addCase(signInGoogle.fulfilled,signInGoogle.pending, signInGoogle.rejected, (state, action) => {
       // })
       .addCase(refreshCurrentUser.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(refreshCurrentUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isRegisterIn = true;
+      .addCase(refreshCurrentUser.fulfilled, (state, _) => {
         state.isLoggedIn = true;
-        state.error = null;
-      })
-      .addCase(refreshCurrentUser.rejected, state => {
         state.isRefreshing = false;
       })
+      .addMatcher(
+        isAnyOf(refreshCurrentUser.rejected, logOut.fulfilled),
+        handleResetState,
+      )
       .addMatcher(
         isAnyOf(register.pending, logIn.pending, logOut.pending, logIn.pending),
         handlePending,
       )
-
       .addMatcher(isAnyOf(register.rejected, logIn.rejected), handleRejected);
   },
 });

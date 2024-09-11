@@ -1,20 +1,16 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import {
-  getFilter,
-  getContacts,
-  changeFilter,
-  clearFilterInput,
-} from '../../redux/phonebook';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import styles from './Filter.module.css';
+import { getFilter, selectGetContacts } from '../../redux/contacts/selectors';
+import { changeFilter, clearFilterInput } from '../../redux/contacts/slice';
 
 export default function Filter() {
   const dispatch = useDispatch();
 
   const value = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectGetContacts);
 
   const clearInput = useCallback(() => {
     dispatch(clearFilterInput());
@@ -34,7 +30,9 @@ export default function Filter() {
             className={styles.TaskEditor_input}
             type="text"
             value={value}
-            onChange={e => dispatch(changeFilter(e.target.value))}
+            onChange={e => {
+              dispatch(changeFilter(e.target.value));
+            }}
             name="filter"
           />
           {value && (

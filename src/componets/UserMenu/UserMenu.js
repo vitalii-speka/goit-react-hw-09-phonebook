@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
-// import { getUserName } from '../../redux/auth-old';
 import { logOut, instance } from '../../redux/auth/operations';
 
 import './UserMenu.css';
@@ -11,7 +10,6 @@ import { useAuth } from '../../hooks';
 
 export default function UserMenu() {
   const dispatch = useDispatch();
-  // const name = useSelector(getUserName);
   const { token, user } = useAuth();
 
   const onLogOut = useCallback(() => {
@@ -36,7 +34,7 @@ export default function UserMenu() {
   return (
     <div className="container-user">
       <img src={defaultAvatar} alt="" width="32" className="avatar" />
-      <span className="name">Welcome, {user.name}</span>
+      {user && <span className="name">Welcome, {user.name}</span>}
       <Button variant="outline-info" onClick={onLogOut}>
         Logout
       </Button>

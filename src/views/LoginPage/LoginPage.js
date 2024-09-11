@@ -1,26 +1,22 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
-// import { getAuthError, getAuthLoading } from '../../redux/auth-old';
-// import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 import { CSSTransition } from 'react-transition-group';
 import { logIn } from '../../redux/auth/operations';
-// import { useAuth } from '../../hooks';
+import { useAuth } from '../../hooks';
 
 import Alert from '../../componets/Alert';
+import LinearIndeterminate from '../../componets/spiner/LinearIndeterminate';
 // import { signInGoogle } from '../../redux/auth/operations';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
-  // const { user } = useAuth();
+  const { isLoading, isRegisterIn, user, errorAuth } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertError, setAlertError] = useState(false);
   const [notification, setNotification] = useState(null);
-
-  // const errorAuth = useSelector(getAuthError);
-  // const isLoadingAuth = useSelector(getAuthLoading);
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
@@ -83,55 +79,66 @@ export default function LoginPage() {
 
   return (
     <>
-      {/* {isLoadingAuth && <LinearIndeterminate />} */}
+      {isLoading ? (
+        <>
+          <LinearIndeterminate />
+          <Alert
+            text={isLoading}
+            alert={'Please wait, sending a request'}
+            variant={'secondary'}
+          />
+        </>
+      ) : (
+        <CSSTransition
+          in={true}
+          appear={true}
+          timeout={250}
+          classNames="fade-scale"
+          unmountOnExit
+        >
+          <div>
+            {isRegisterIn && <h2>Hi {user.name}</h2>}
+            <h2>Enter your Login and Password</h2>
+            <form onSubmit={handleSubmit} className={styles.TaskEditor}>
+              <label className={styles.TaskEditor_label}>
+                Email
+                <input
+                  className={styles.TaskEditor_input}
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                />
+              </label>
 
-      <CSSTransition
-        in={true}
-        appear={true}
-        timeout={250}
-        classNames="fade-scale"
-        unmountOnExit
-      >
-        <div>
-          <h2>Enter Login and Password</h2>
-          <form onSubmit={handleSubmit} className={styles.TaskEditor}>
-            <label className={styles.TaskEditor_label}>
-              Email
-              <input
-                className={styles.TaskEditor_input}
-                type="email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-              />
-            </label>
+              <label className={styles.TaskEditor_label}>
+                Password
+                <input
+                  className={styles.TaskEditor_input}
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                />
+              </label>
 
-            <label className={styles.TaskEditor_label}>
-              Password
-              <input
-                className={styles.TaskEditor_input}
-                type="password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-              />
-            </label>
-
-            <button className={styles.TaskEditor_button} type="submit">
-              Log In
-            </button>
-            {/* <button
+              <button className={styles.TaskEditor_button} type="submit">
+                Log In
+              </button>
+              {/* <button
               className={styles.TaskEditor_button}
               onClick={onSignInGoogle}
             >
               Continue with Google
             </button> */}
-          </form>
-        </div>
-      </CSSTransition>
-      <Alert text={notification} alert={alertError} />
+            </form>
+          </div>
+        </CSSTransition>
+      )}
 
-      {/* {errorAuth && <Alert text={errorAuth} alert={errorAuth} />} */}
+      <Alert text={alertError} alert={notification} variant={'info'} />
+
+      {errorAuth && <Alert text={true} alert={errorAuth} variant={'danger'} />}
     </>
   );
 }

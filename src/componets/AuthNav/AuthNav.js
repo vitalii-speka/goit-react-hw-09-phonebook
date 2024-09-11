@@ -12,8 +12,9 @@ const AuthNav = () => {
       {!isRegisterIn && (
         <NavLink
           to={paths.register}
-          className="navLink"
-          activeClassName="navLinkActive"
+          className={navData =>
+            navData.isActive ? 'navLinkActive' : 'navLink'
+          }
         >
           Create Account
         </NavLink>
@@ -21,12 +22,11 @@ const AuthNav = () => {
 
       <NavLink
         to={paths.login}
-        className="navLink"
-        activeClassName="navLinkActive"
+        className={navData => (navData.isActive ? 'navLinkActive' : 'navLink')}
       >
         Log In
       </NavLink>
-      
+
       {/*  next step => add Google login
       <NavLink
         to={paths.google}

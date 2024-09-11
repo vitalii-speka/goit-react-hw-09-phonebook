@@ -3,13 +3,17 @@ import { Navigate, useLocation } from 'react-router-dom';
 import paths from '../paths';
 import { useAuth } from '../hooks';
 
-const PublicRoute = ({ children }) => {
-  const { isLoggedIn } = useAuth();
+const PublicRouteRegist = ({ children }) => {
+  const { isRegisterIn } = useAuth();
   const { state } = useLocation();
-  return !isLoggedIn ? children : <Navigate to={state ? state : paths.home} />;
+  return !isRegisterIn ? (
+    children
+  ) : (
+    <Navigate to={state ? state : paths.login} />
+  );
 };
 
-export default PublicRoute;
+export default PublicRouteRegist;
 
 /* 
 export default function PublicRoute({ children, ...routeProps }) {

@@ -1,31 +1,21 @@
 import React, { useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { useSelector } from 'react-redux';
-/*  
-import {
-  getIsAuthenticated,
-  getUserName,
-  getIsToken,
-} from '../../redux/auth-old';
-*/
 import { useAuth } from '../../hooks';
-
 import './HomePage.css';
-
 import homePageImage from './home-page.png';
 
 export default function HomePage() {
-  // const isAuthenticated = useSelector(getIsAuthenticated);
-  // const name = useSelector(getUserName);
-  // const isTokenAuth = useSelector(getIsToken);
+  const {
+    isLoggedIn,
+    user: { name },
+    token,
+  } = useAuth();
 
-  const { isLoggedIn, user } = useAuth();
-  // console.log('🚀 ~ HomePage ~ user:', user);
-  // console.log('🚀 ~ LoginPage ~ isLoggedIn:', isLoggedIn);
+  //{ user: { name, location, age } }
 
   useEffect(() => {
     if (isLoggedIn) {
-      document.title = `Hi, ${user.name}`;
+      document.title = `Hi, ${name}`;
     }
 
     if (!isLoggedIn) {
@@ -33,21 +23,13 @@ export default function HomePage() {
         document.title = `Phonebook`;
       };
     }
-  }, [isLoggedIn, user.name]);
+  }, [isLoggedIn, token, name]);
 
-  /* const isAuth = useSelector(state => {
-    return state.auth.token;
-  });
-  */
-  
   return (
     <>
       {isLoggedIn ? (
-        <h2 className="homePageTitle">
-          Hello, {user.name}! This your phonebook
-        </h2>
+        <h2 className="homePageTitle">Hello, {name}! This your phonebook</h2>
       ) : null}
-      {/* {isAuth ? <h2>It's, isAuth {isAuth}! </h2> : null} */}
       <CSSTransition
         in={true}
         appear={true}

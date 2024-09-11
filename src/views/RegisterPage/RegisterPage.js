@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import './RegisterPage.css';
 import '../../componets/AppBar/AppBar.css';
-// import { getAuthError, getAuthLoading } from '../../redux/auth-old';
 import { register } from '../../redux/auth/operations';
 import Alert from '../../componets/Alert';
 import styles from '../../componets/ContactForm/ContactForm.module.css';
@@ -20,13 +19,7 @@ export default function RegisterPage() {
   const [notification, setNotification] = useState(null);
 
   const dispatch = useDispatch();
-
-  /* old reducer 
-  const errorAuth = useSelector(getAuthError);
-  const isLoadingAuth = useSelector(getAuthLoading);
-  */
-  const { isRegisterIn, isLoggedIn, error: errorAuth } = useAuth();
-  console.log("🚀 ~ RegisterPage ~ errorAuth:", errorAuth)
+  const { isRegisterIn, isLoading, errorAuth } = useAuth();
 
   const handleChange = useCallback(e => {
     const { name, value } = e.currentTarget;
@@ -91,76 +84,88 @@ export default function RegisterPage() {
 
   return (
     <>
-      <CSSTransition
-        in={true}
-        appear={true}
-        timeout={250}
-        classNames="fade-scale"
-        unmountOnExit
-      >
-        {isRegisterIn ? (
-          <h2>
-            You registered. Now, you need to move :
-            <NavLink
-              exact
-              to={paths.login}
-              className="navLinkRegisterPage"
-              activeClassName="navLinkActive"
-            >
-              Login
-            </NavLink>
-          </h2>
-        ) : (
-          <>
-            <div>
-              <h2>Create account</h2>
+      {/* <h2>Register Page</h2> */}
+      {isLoading ? (
+        <>
+          <Alert
+            text={isLoading}
+            alert={'Please wait, sending a request'}
+            variant={'secondary'}
+          />
+          <LinearIndeterminate />
+        </>
+      ) : (
+        <CSSTransition
+          in={true}
+          appear={true}
+          timeout={250}
+          classNames="fade-scale"
+          unmountOnExit
+        >
+          {isRegisterIn ? (
+            <h2>
+              You registered. Now, you need to move :
+              <NavLink
+                to={paths.login}
+                className={navData =>
+                  navData.isActive ? 'navLinkActive' : 'navLink'
+                }
+              >
+                Login
+              </NavLink>
+            </h2>
+          ) : (
+            <>
+              <div>
+                <h2>Create account</h2>
 
-              <form onSubmit={handleSubmit} className={styles.TaskEditor}>
-                <label className={styles.TaskEditor_label}>
-                  Name
-                  <input
-                    className={styles.TaskEditor_input}
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={handleChange}
-                  />
-                </label>
+                <form onSubmit={handleSubmit} className={styles.TaskEditor}>
+                  <label className={styles.TaskEditor_label}>
+                    Name
+                    <input
+                      className={styles.TaskEditor_input}
+                      type="text"
+                      name="name"
+                      value={name}
+                      onChange={handleChange}
+                    />
+                  </label>
 
-                <label className={styles.TaskEditor_label}>
-                  Email
-                  <input
-                    className={styles.TaskEditor_input}
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={handleChange}
-                  />
-                </label>
+                  <label className={styles.TaskEditor_label}>
+                    Email
+                    <input
+                      className={styles.TaskEditor_input}
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={handleChange}
+                    />
+                  </label>
 
-                <label className={styles.TaskEditor_label}>
-                  Password
-                  <input
-                    className={styles.TaskEditor_input}
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={handleChange}
-                  />
-                </label>
+                  <label className={styles.TaskEditor_label}>
+                    Password
+                    <input
+                      className={styles.TaskEditor_input}
+                      type="password"
+                      name="password"
+                      value={password}
+                      onChange={handleChange}
+                    />
+                  </label>
 
-                <button className={styles.TaskEditor_button} type="submit">
-                  Sing Up
-                </button>
-              </form>
-            </div>
-          </>
-        )}
-      </CSSTransition>
-
-      {isLoggedIn && <LinearIndeterminate />}
-      <Alert text={alertError} alert={notification} />
-      {errorAuth && <Alert text={true} alert={errorAuth} />}
+                  <button className={styles.TaskEditor_button} type="submit">
+                    Sing Up
+                  </button>
+                </form>
+              </div>
+            </>
+          )}
+        </CSSTransition>
+      )}
+      <Alert text={alertError} alert={notification} variant={'info'} />
+      {errorAuth && <Alert text={true} alert={errorAuth} variant={'danger'} />}
     </>
   );
 }
+
+// text = true; alert = notification (message)
