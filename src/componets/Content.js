@@ -1,12 +1,15 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import LinearIndeterminate from './spiner/LinearIndeterminate';
-
 // import routes from '../routes';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 import PublicRouteRegist from './PublicRouteRegist';
 import paths from '../paths';
+import { useAuth } from '../hooks/useAuth.js';
+import { refreshCurrentUser } from '../redux/auth/operations.js';
+
 
 const HomePage = lazy(() => import('../views/HomePage/HomePage.js'));
 const LoginPage = lazy(() => import('../views/LoginPage/LoginPage.js'));
@@ -18,6 +21,15 @@ const ContactsPage = lazy(() =>
 );
 
 const Content = () => {
+  const dispatch = useDispatch();
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(refreshCurrentUser());
+    }
+  }, [dispatch, token]);
+
   return (
     <Suspense fallback={<LinearIndeterminate />}>
       <Routes>

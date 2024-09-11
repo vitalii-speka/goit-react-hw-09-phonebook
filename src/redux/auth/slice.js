@@ -11,12 +11,20 @@ const initialState = {
   error: null,
 };
 
-const handlePending = (state, { payload }) => {
+const handlePending = (state, _) => {
   state.isLoading = true;
 };
 const handleRejected = (state, { payload }) => {
   state.isLoading = false;
   state.error = payload;
+};
+const handleResetState = (state, _) => {
+  state.user = initialState.user;
+  state.token = null;
+  state.isRegisterIn = false;
+  state.isLoggedIn = false;
+  state.isLoading = false;
+  state.error = '';
 };
 
 const authSlice = createSlice({
@@ -38,38 +46,24 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.error = null;
       })
-      .addCase(logOut.fulfilled, state => {
-        state.user = initialState.user;
-        state.token = null;
-        state.isRegisterIn = false;
-        state.isLoggedIn = false;
-        state.isLoading = false;
-        state.error = '';
-      })
-      // .addCase(signInGoogle.fulfilled, (state, action) => {
-      // })
-      // .addCase(signInGoogle.pending, (state, action) => {
-      // })
-      // .addCase(signInGoogle.rejected, (state, action) => {
+      // .addCase(signInGoogle.fulfilled,signInGoogle.pending, signInGoogle.rejected, (state, action) => {
       // })
       .addCase(refreshCurrentUser.pending, state => {
         state.isRefreshing = true;
       })
       .addCase(refreshCurrentUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isRegisterIn = true;
+        // state.user = action.payload;
         state.isLoggedIn = true;
-        state.error = null;
-      })
-      .addCase(refreshCurrentUser.rejected, state => {
         state.isRefreshing = false;
       })
+      .addMatcher(
+        isAnyOf(refreshCurrentUser.rejected, logOut.fulfilled),
+        handleResetState,
+      )
       .addMatcher(
         isAnyOf(register.pending, logIn.pending, logOut.pending, logIn.pending),
         handlePending,
       )
-
       .addMatcher(isAnyOf(register.rejected, logIn.rejected), handleRejected);
   },
 });

@@ -34,7 +34,7 @@ export default function UserMenu() {
   return (
     <div className="container-user">
       <img src={defaultAvatar} alt="" width="32" className="avatar" />
-      <span className="name">Welcome, {user.name}</span>
+      {user && <span className="name">Welcome, {user.name}</span>}
       <Button variant="outline-info" onClick={onLogOut}>
         Logout
       </Button>

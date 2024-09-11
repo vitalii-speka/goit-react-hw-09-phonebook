@@ -23,7 +23,7 @@ export default function ContactsPage() {
   const isLoadingContacts = useSelector(getisLoadingContacts);
   const errorContacts = useSelector(getContactsError);
 
-  const {  token, user } = useAuth();
+  const { token, user } = useAuth();
 
   const dispatch = useDispatch();
 

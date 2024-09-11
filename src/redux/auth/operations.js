@@ -96,14 +96,14 @@ export const refreshCurrentUser = createAsyncThunk(
   'auth/refreshCurrentUser',
   async (_, thunkApi) => {
     const state = thunkApi.getState();
+    console.log("🚀 ~ state:", state)
     const persistedToken = state.auth.token;
+    console.log("🚀 ~ persistedToken:", persistedToken)
     if (persistedToken === null) {
       return thunkApi.rejectWithValue(state);
     }
-    token.set(persistedToken);
     try {
       const { data } = await instance.get('/users/current');
-      // console.log('current user data', data)
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

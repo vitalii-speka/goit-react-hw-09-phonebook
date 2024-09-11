@@ -5,8 +5,7 @@ import './HomePage.css';
 import homePageImage from './home-page.png';
 
 export default function HomePage() {
-
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, token } = useAuth();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -18,9 +17,7 @@ export default function HomePage() {
         document.title = `Phonebook`;
       };
     }
-  }, [isLoggedIn, user.name]);
-
-
+  }, [isLoggedIn, token, user.name]);
 
   return (
     <>
