@@ -2,7 +2,6 @@ import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
 import { getVisibleContacts } from '../../redux/contacts/selectors';
-// import { getVisibleContacts, removeContact } from '../../redux/phonebook';
 import PropTypes from 'prop-types';
 import './ContactList.css';
 import { removeContact } from '../../redux/contacts/operations';

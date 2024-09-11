@@ -80,7 +80,14 @@ export default function LoginPage() {
   return (
     <>
       {isLoading ? (
-        <LinearIndeterminate />
+        <>
+          <LinearIndeterminate />
+          <Alert
+            text={isLoading}
+            alert={'Please wait, sending a request'}
+            variant={'secondary'}
+          />
+        </>
       ) : (
         <CSSTransition
           in={true}
@@ -129,9 +136,9 @@ export default function LoginPage() {
         </CSSTransition>
       )}
 
-      <Alert text={notification} alert={alertError} />
+      <Alert text={alertError} alert={notification} variant={'info'} />
 
-      {errorAuth && <Alert text={errorAuth} alert={errorAuth} />}
+      {errorAuth && <Alert text={true} alert={errorAuth} variant={'danger'} />}
     </>
   );
 }

@@ -4,6 +4,7 @@
 }
 
 .TaskList_item {
+  margin-top: 12px;
   position: relative;
 
   display: flex;

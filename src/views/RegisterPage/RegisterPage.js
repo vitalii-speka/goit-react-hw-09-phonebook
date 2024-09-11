@@ -84,10 +84,14 @@ export default function RegisterPage() {
 
   return (
     <>
-      <h1>Register Page</h1>
+      {/* <h2>Register Page</h2> */}
       {isLoading ? (
         <>
-          <h2>Please wait, sending a request</h2>
+          <Alert
+            text={isLoading}
+            alert={'Please wait, sending a request'}
+            variant={'secondary'}
+          />
           <LinearIndeterminate />
         </>
       ) : (
@@ -158,8 +162,10 @@ export default function RegisterPage() {
           )}
         </CSSTransition>
       )}
-      <Alert text={alertError} alert={notification} />
-      {errorAuth && <Alert text={true} alert={errorAuth} />}
+      <Alert text={alertError} alert={notification} variant={'info'} />
+      {errorAuth && <Alert text={true} alert={errorAuth} variant={'danger'} />}
     </>
   );
 }
+
+// text = true; alert = notification (message)

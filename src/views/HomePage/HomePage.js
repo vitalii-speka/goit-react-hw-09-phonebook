@@ -5,11 +5,17 @@ import './HomePage.css';
 import homePageImage from './home-page.png';
 
 export default function HomePage() {
-  const { isLoggedIn, user, token } = useAuth();
+  const {
+    isLoggedIn,
+    user: { name },
+    token,
+  } = useAuth();
+
+  //{ user: { name, location, age } }
 
   useEffect(() => {
     if (isLoggedIn) {
-      document.title = `Hi, ${user.name}`;
+      document.title = `Hi, ${name}`;
     }
 
     if (!isLoggedIn) {
@@ -17,14 +23,12 @@ export default function HomePage() {
         document.title = `Phonebook`;
       };
     }
-  }, [isLoggedIn, token, user.name]);
+  }, [isLoggedIn, token, name]);
 
   return (
     <>
       {isLoggedIn ? (
-        <h2 className="homePageTitle">
-          Hello, {user.name}! This your phonebook
-        </h2>
+        <h2 className="homePageTitle">Hello, {name}! This your phonebook</h2>
       ) : null}
       <CSSTransition
         in={true}
