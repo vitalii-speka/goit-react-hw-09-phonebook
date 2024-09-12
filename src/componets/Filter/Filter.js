@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import BackspaceIcon from '@material-ui/icons/Backspace';
+// import BackspaceIcon from '@material-ui/icons/Backspace';
+// import BackspaceIcon from '@mui/icons-material/Backspace';
 import styles from './Filter.module.css';
 import { getFilter, selectGetContacts } from '../../redux/contacts/selectors';
 import { changeFilter, clearFilterInput } from '../../redux/contacts/slice';
@@ -37,7 +38,8 @@ export default function Filter() {
           />
           {value && (
             <button className={styles.button} onClick={clearInput}>
-              <BackspaceIcon />
+              <h2>del text</h2>
+              {/* <BackspaceIcon /> */}
             </button>
           )}
         </label>
