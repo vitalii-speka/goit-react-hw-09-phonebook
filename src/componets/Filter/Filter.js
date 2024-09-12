@@ -38,7 +38,7 @@ export default function Filter() {
           />
           {value && (
             <button className={styles.button} onClick={clearInput}>
-              <h2>del text</h2>
+              <h2>del</h2>
               {/* <BackspaceIcon /> */}
             </button>
           )}

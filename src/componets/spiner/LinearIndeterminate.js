@@ -16,14 +16,14 @@ import React from 'react';
 export default function LinearIndeterminate() {
   // const classes = useStyles();
 
-  return (<>
-      <h2>SOme process</h2>
+  return (
+    <>
+      <h2>loading...</h2>
     </>
-    
   );
 }
 
 // <div className={classes.root}>
-      // {/* <LinearProgress /> */}
-      // {/* <LinearProgress color="secondary" /> */}
-    // </div>
+// {/* <LinearProgress /> */}
+// {/* <LinearProgress color="secondary" /> */}
+// </div>
